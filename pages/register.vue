@@ -27,6 +27,13 @@
                     <v-btn type="submit" color="black" block class="mt-2">Guardar</v-btn>
 
                 </v-form>
+                <div class="mt-2">
+                    <p class="text-body-2">¿Ya tienes cuenta?
+                        <NuxtLink to="/login">
+                        Inicia sesión
+                        </NuxtLink>
+                    </p>
+                </div>
                 <br>
             </v-sheet>
         </v-sheet>
