@@ -27,14 +27,57 @@
     </v-sheet>
   </div>
 </template>
-<script setup>
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      visible: false,
+      users: [],
+      emailRules: [
+        value => {
+          if (value) return true
+          return 'El campo es obligatorio.'
+        },
+        value => {
+          if (/[^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(value)) return true
+          return 'Correo no valido.'
+        }
+      ],
+    };
+  },
+  methods: {
+    async getUsers() {
+      try {
+        const response = await axios.get('http://localhost:3001/users');
+        this.users = response.data;
+      } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+      }
+    },
+    async login() {
+      await this.getUsers();
+
+      const foundUser = this.users.find(
+        user =>
+          user.email === this.email && user.password === this.password
+      );
+
+      if (foundUser) {
+        console.log('Inicio de sesión exitoso para el usuario:', foundUser);
+        this.$router.push('/');
+      } else {
+        console.error('Credenciales incorrectas. Inicio de sesión fallido.');
+      }
+    },
+  },
+};
 definePageMeta({
   layout: "blank",
 });
-
-const email = ref("");
-const password = ref("");
-
 </script>
 <style>
 body {
