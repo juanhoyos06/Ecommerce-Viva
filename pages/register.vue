@@ -107,7 +107,11 @@ export default {
       );
 
       if (emailExists) {
-        console.error("El correo electrónico ya está registrado.");
+        Swal.fire({
+          title: "Lo siento",
+          text: "El correo electrónico ya se encuentra registrado",
+          icon: "warning",
+        });
       } else if (this.formData.password !== this.formData.confirmPassword) {
         Swal.fire({
           title: "Error",
