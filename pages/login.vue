@@ -84,11 +84,6 @@ export default {
       );
 
       if (foundUser) {
-        console.log("Inicio de sesión exitoso para el usuario:", foundUser);
-        Swal.fire({
-          icon: "success",
-        });
-        // Redirige al usuario a la página de inicio
         this.$router.push("/");
       } else {
         // Muestra una alerta de SweetAlert2 en caso de credenciales incorrectas
