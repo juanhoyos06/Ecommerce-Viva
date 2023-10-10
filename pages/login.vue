@@ -1,21 +1,50 @@
 <template>
   <div>
-    <v-sheet rounded="xl" elevation="12" max-width="400" width="90%" class="ma-10 pa-5 mx-auto">
-      <v-btn href="/" variant="text" class="position-absolute top-0 left-2" size="x-large" icon="mdi-arrow-left"></v-btn>
+    <v-sheet
+      rounded="xl"
+      elevation="12"
+      max-width="400"
+      width="90%"
+      class="ma-10 pa-5 mx-auto"
+    >
+      <v-btn
+        href="/"
+        variant="text"
+        class="position-absolute top-0 left-2"
+        size="x-large"
+        icon="mdi-arrow-left"
+      ></v-btn>
       <center>
-        <img src="../assets/img/logo_viva_login.png" height="200" class="ml-20">
+        <img
+          src="../assets/img/logo_viva_login.png"
+          height="200"
+          class="ml-20"
+        />
       </center>
       <v-sheet width="300" class="mx-auto">
-        <br>
+        <br />
         <v-form fast-fail @submit.prevent="login">
-          <v-text-field v-model="email" label="Correo" type="email" prepend-icon="mdi-email"></v-text-field>
-          <v-text-field v-model="password" type="password" label="Contraseña" prepend-icon="mdi-key"></v-text-field>
-          <a href="#" class="text-body-2 font-weight-regular">Olvidé mi contraseña</a>
+          <v-text-field
+            v-model="email"
+            label="Correo"
+            type="email"
+            prepend-icon="mdi-email"
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            type="password"
+            label="Contraseña"
+            prepend-icon="mdi-key"
+          ></v-text-field>
+          <a href="#" class="text-body-2 font-weight-regular"
+            >Olvidé mi contraseña</a
+          >
 
           <v-btn type="submit" color="black" block class="mt-2">Ingresar</v-btn>
         </v-form>
         <div class="mt-2">
-          <p class="text-body-2">¿No tienes cuenta?
+          <p class="text-body-2">
+            ¿No tienes cuenta?
             <NuxtLink to="/register">
               Registrarse
             </NuxtLink>
@@ -27,54 +56,53 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       users: [],
     };
   },
   methods: {
     async getUsers() {
       try {
-        const response = await axios.get('http://localhost:3001/users');
+        const response = await axios.get("http://localhost:3001/users");
         this.users = response.data;
       } catch (error) {
-        console.error('Error al obtener usuarios:', error);
+        console.error("Error al obtener usuarios:", error);
       }
     },
     async login() {
       await this.getUsers();
 
       const foundUser = this.users.find(
-        user =>
-          user.email === this.email && user.password === this.password
+        (user) => user.email === this.email && user.password === this.password
       );
 
       if (foundUser) {
-        console.log('Inicio de sesión exitoso para el usuario:', foundUser);
+        console.log("Inicio de sesión exitoso para el usuario:", foundUser);
         Swal.fire({
-          icon: 'success'
-        })
+          icon: "success",
+        });
         // Redirige al usuario a la página de inicio
-        this.$router.push('/');
+        this.$router.push("/");
       } else {
         // Muestra una alerta de SweetAlert2 en caso de credenciales incorrectas
         Swal.fire({
-          icon: 'error',
-          title: 'Credenciales incorrectas',
-          text: 'Inicio de sesión fallido. Verifica tu correo y contraseña.',
+          icon: "error",
+          title: "Credenciales incorrectas",
+          text: "Inicio de sesión fallido. Verifica tu correo y contraseña.",
         });
       }
     },
   },
 };
 definePageMeta({
-    layout: "blank",
+  layout: "blank",
 });
 </script>
 

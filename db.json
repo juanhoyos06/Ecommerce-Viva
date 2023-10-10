@@ -1,25 +1,16 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "email": "jujosal@gmail.com",
-        "password": "prueba1"
-      },
-      {
-        "id": 2,
-        "email": "prueba@gmail.com",
-        "password": "prueba2"
-      },
-      {
-        "id": 3,
-        "email": "usuario3@example.com",
-        "password": "prueba3"
-      }
-    ],
-    "products":[
-      {
-        
-      }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": 1,
+      "name": "pruebas1",
+      "email": "pruebas1@pruebas.com",
+      "password": "pruebas1"
+    },
+    {
+      "id": 2,
+      "name": "pruebas2",
+      "email": "pruebas2@pruebas.com",
+      "password": "pruebas2"
+    }
+  ]
+}
