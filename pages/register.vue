@@ -93,17 +93,32 @@ export default {
     async getUsers() {
       try {
         const response = await axios.get("http://localhost:3001/users");
-        this.formData.users = response.data; // Corrección: asignar a this.formData.users
+        this.formData.users = response.data;
       } catch (error) {
         console.error("Error al obtener usuarios:", error);
       }
     },
     async register() {
+      if (
+        !this.formData.name ||
+        !this.formData.email ||
+        !this.formData.password ||
+        !this.formData.confirmPassword ||
+        !this.formData.acceptTerms
+      ) {
+        Swal.fire({
+          title: "Error",
+          text: "Por favor, complete todos los campos del formulario",
+          icon: "error",
+        });
+        this.$router.push("./register");
+        return; // No continuar si hay campos vacíos
+      }
+
       await this.getUsers();
 
-      // Check if the email already exists
       const emailExists = this.formData.users.some(
-        (user) => user.email === this.formData.email // Corrección: usar this.formData.email
+        (user) => user.email === this.formData.email
       );
 
       if (emailExists) {
@@ -119,24 +134,20 @@ export default {
           icon: "error",
         });
       } else {
-        // Increment the counter for the next user
         let highestId = this.formData.users.reduce((maxId, user) => {
           return user.id > maxId ? user.id : maxId;
         }, 0);
 
         highestId++;
-        // Generate a unique sequential ID for the new user
         const userId = highestId;
 
-        // Register the new user with the generated sequential ID
         const newUser = {
           id: userId,
-          name: this.formData.name, // Corrección: usar this.formData.name
-          email: this.formData.email, // Corrección: usar this.formData.email
-          password: this.formData.password, // Corrección: usar this.formData.password
+          name: this.formData.name,
+          email: this.formData.email,
+          password: this.formData.password,
         };
 
-        // Add the user to the server
         await this.addUser(newUser);
 
         Swal.fire({
@@ -144,9 +155,7 @@ export default {
           title: "Registro exitoso:",
         });
 
-        console.log("Nuevo usuario registrado:", newUser);
-        // Optionally, you can redirect to a different page after successful registration
-        this.$router.push("./");
+        this.$router.push("./login");
       }
     },
     async addUser(user) {
