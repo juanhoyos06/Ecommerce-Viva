@@ -74,8 +74,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
-let nextUserId = 2; // Contador para el ID autoincremental
-
 export default {
   data() {
     return {
@@ -118,9 +116,13 @@ export default {
         });
       } else {
         // Increment the counter for the next user
-        nextUserId++;
+        let highestId = this.formData.users.reduce((maxId, user) => {
+          return user.id > maxId ? user.id : maxId;
+        }, 0);
+
+        highestId++;
         // Generate a unique sequential ID for the new user
-        const userId = nextUserId;
+        const userId = highestId;
 
         // Register the new user with the generated sequential ID
         const newUser = {

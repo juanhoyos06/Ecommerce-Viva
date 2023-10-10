@@ -11,6 +11,18 @@
       "name": "pruebas2",
       "email": "pruebas2@pruebas.com",
       "password": "pruebas2"
+    },
+    {
+      "id": 3,
+      "name": "2",
+      "email": "2",
+      "password": "2"
+    },
+    {
+      "id": 4,
+      "name": "4",
+      "email": "4",
+      "password": "4"
     }
   ]
 }
