@@ -103,16 +103,33 @@ export default {
         !this.formData.name ||
         !this.formData.email ||
         !this.formData.password ||
-        !this.formData.confirmPassword ||
-        !this.formData.acceptTerms
+        !this.formData.confirmPassword
       ) {
         Swal.fire({
           title: "Error",
           text: "Por favor, complete todos los campos del formulario",
           icon: "error",
         });
-        this.$router.push("./register");
-        return; // No continuar si hay campos vacíos
+        return;
+      }
+      if (!this.formData.acceptTerms) {
+        Swal.fire({
+          title: "¡Lo siento!",
+          text: "Debes aceptar terminos y condiciones para continuar",
+          icon: "warning",
+        });
+        return;
+      }
+
+      // Validar el formato del correo electrónico
+      const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+      if (!emailRegex.test(this.formData.email)) {
+        Swal.fire({
+          title: "Error",
+          text: "El correo electrónico no tiene un formato válido",
+          icon: "error",
+        });
+        return;
       }
 
       await this.getUsers();
