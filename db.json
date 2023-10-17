@@ -11,6 +11,18 @@
       "name": "pruebas2",
       "email": "pruebas2@pruebas.com",
       "password": "pruebas2"
+    },
+    {
+      "id": 3,
+      "name": "JUAN",
+      "email": "juan@gmail.com",
+      "password": "juan"
+    },
+    {
+      "id": 4,
+      "name": "manu",
+      "email": "manu11@gmail.com",
+      "password": "manu11"
     }
   ],
   "products":[
