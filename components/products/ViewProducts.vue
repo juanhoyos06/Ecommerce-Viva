@@ -7,7 +7,7 @@
             <v-row>
                 <v-col v-for="product in products" :key="product.id" cols="cols" md="4">
                     <v-item v-slot="{ selectedClass, toggle }">
-                        <v-card class="mx-auto pa-6" height="400" width="300" dark @click="openDialog(product)" color="gray"
+                        <v-card class="mx-auto pa-6" height="450" width="300" dark @click="openDialog(product)" color="gray"
                             elevation="18">
 
                             <v-img :src="`_nuxt/assets/img/products/${product.image}`" height="330" cover>
@@ -15,7 +15,7 @@
 
 
                             <v-card-title class="text-center">{{ product.name }}</v-card-title>
-                            <v-card-title class="text-center">{{ '$'+ product.price }}</v-card-title>
+                            <v-card-title class="text-center" style="font-weight: bold;">{{ '$'+ product.price }}</v-card-title>
                         </v-card>
                     </v-item>
                 </v-col>
