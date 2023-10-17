@@ -32,9 +32,11 @@
           ></v-text-field>
           <v-text-field
             v-model="password"
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             label="Contraseña"
             prepend-icon="mdi-key"
+            :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append="showPassword = !showPassword"
           ></v-text-field>
           <a href="#" class="text-body-2 font-weight-regular"
             >Olvidé mi contraseña</a
@@ -64,6 +66,7 @@ export default {
     return {
       email: "",
       password: "",
+      showPassword: false, // Nuevo dato para controlar la visibilidad de la contraseña
       users: [],
     };
   },
