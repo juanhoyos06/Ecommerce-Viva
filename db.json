@@ -12,5 +12,106 @@
       "email": "pruebas2@pruebas.com",
       "password": "pruebas2"
     }
+  ],
+  "products":[
+    {
+      "id": 1,
+      "name": "Camiseta Regular Fit Azul",
+      "image":"assets/img/products/Camiseta-de-cuello-redondo-Regular-Fit---Azul-claro---H-M-CO.jpg",
+      "category": "Ropa Hombre",
+      "brand": "h&m",
+      "price": 74900
+
+    },
+    {
+      "id": 2,
+      "name": "Camiseta Regular Fit Negra",
+      "image":"assets/img/products/Camiseta-de-cuello-redondo-Regular-Fit---Negro---H-M-CO.jpg",
+      "category": "Ropa Hombre",
+      "brand": "h&m",
+      "price": 74900
+
+    },
+    {
+      "id": 3,
+      "name": "Camiseta Loose Fit Verde",
+      "image":"assets/img/products/Camiseta-Loose-Fit---Verde-oscuro---H-M-CO.jpg",
+      "category": "Ropa Hombre",
+      "brand": "h&m",
+      "price": 64900
+
+    },
+    {
+      "id": 4,
+      "name": "Camiseta Relaxed Fit Azul",
+      "image":"assets/img/products/Camiseta-Relaxed-Fit---Blue---H-M-CO.jpg",
+      "category": "Ropa Hombre",
+      "brand": "h&m",
+      "price": 84900
+
+    },
+    {
+      "id": 5,
+      "name": "Camiseta Relaxed Fit Naranja",
+      "image":"assets/img/products/Camiseta-Relaxed-Fit---Naranja-oscuro---H-M-CO.jpg",
+      "category": "Ropa Hombre",
+      "brand": "h&m",
+      "price": 84900
+
+    },
+    {
+      "id": 6,
+      "name": "Camiseta Relaxed Fit Marron",
+      "image":"assets/img/products/Camiseta-Relaxed-Fit-en-algodon---Marron-oscuro-Rayas---H-M-CO.jpg",
+      "category": "Ropa Hombre",
+      "brand": "h&m",
+      "price": 84900
+
+    },
+    {
+      "id": 7,
+      "name": "Joggers Skinny Fit Azul",
+      "image":"assets/img/products/Joggers-cargo-en-nailon-Skinny-Fit---Azul-acero---H-M-CO.jpg",
+      "category": "Ropa Hombre",
+      "brand": "h&m",
+      "price": 89900
+
+    },
+    {
+      "id": 8,
+      "name": "Joggers Skinny Fit Gris",
+      "image":"assets/img/products/Joggers-cargo-en-nailon-Skinny-Fit---Gris-oscuro---H-M-CO.jpg",
+      "category": "Ropa Hombre",
+      "brand": "h&m",
+      "price": 89900
+
+    },
+    {
+      "id": 9,
+      "name": "Pantalo Bota Tubo Azul Oscuro",
+      "image":"assets/img/products/Pantalon-bota-tubo---Azul-oscuro-Raya-tiza---H-M-CO.jpg",
+      "category": "Ropa Mujer",
+      "brand": "h&m",
+      "price": 109900
+
+    },
+    {
+      "id": 9,
+      "name": "Pantalo Bota Tubo Beige Cuadros",
+      "image":"assets/img/products/Pantalon-bota-tubo---Beige-Cuadros---H-M-CO.jpg",
+      "category": "Ropa Mujer",
+      "brand": "h&m",
+      "price": 109900
+
+    },
+    {
+      "id": 10,
+      "name": "Pantalo Cargo Beige",
+      "image":"assets/img/products/Pantalon-cargo-de-sarga---Beige-claro---H-M-CO.jpg",
+      "category": "Ropa Mujer",
+      "brand": "h&m",
+      "price": 120000
+
+    }
   ]
 }
