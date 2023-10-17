@@ -37,34 +37,4 @@
 definePageMeta({
   layout: "default",
 });
-
-import axios from "axios";
-export default {
-  data() {
-    return {
-      dialog: false,
-      characters: [],
-      selectedCharacter: {}
-
-    }
-  },
-  mounted() {
-    axios.get('https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=699987288fb2dc8a3483835fc5d27322&hash=3df1e8d77029aa53d48fc11664f3a491&limit=100')
-      .then(response => {
-        this.characters = response.data.data.results.filter(hero => {
-          return hero.thumbnail.path != 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available';
-        });
-      })
-      .catch(error => {
-        console.error("Hubo un error", error);
-      });
-  },
-  methods: {
-    openDialog(item) {
-      this.selectedCharacter = item;  // Guarda el personaje seleccionado
-      this.dialog = true;  // Abre el v-dialog
-    }
-  }
-};
-
 </script>
