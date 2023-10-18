@@ -20,28 +20,36 @@
     <v-btn style="background-color: #FFCC00;" variant="text" size="small" @click="loadFilteredProducts">Aplicar</v-btn>
   </div>
 </template>
-<script setup>
+<script>
+import { ref, onBeforeMount } from 'vue';
 import axios from "axios";
 
-const categories = ref([])
-const selectedCategories = ref([])
-
-onBeforeMount(() => {
-  loadCategories()
-})
-const loadCategories = async () => {
-  const url = 'http://localhost:3001/categories'
-  const { data } = await axios.get(url)
-  console.log(data);
-  categories.value = data
-}
-const loadFilteredProducts = () => {
-  selectedCategories.value.forEach(categoryId => {
-    const category = categories.value.find(cat => cat.id === categoryId);
-    if (category) {
-      console.log(category.name);
+export default {
+  name: 'FilterCategory', // Puedes poner el nombre que desees para tu componente
+  data() {
+    return {
+      categories: [],
+      selectedCategories: []
+    };
+  },
+  created() {
+    this.loadCategories();
+  },
+  methods: {
+    async loadCategories() {
+      const url = 'http://localhost:3001/categories';
+      const { data } = await axios.get(url);
+      console.log(data);
+      this.categories = data;
+    },
+    loadFilteredProducts() {
+      this.selectedCategories.forEach(categoryId => {
+        const category = this.categories.find(cat => cat.id === categoryId);
+        if (category) {
+          console.log(category.name);
+        }
+      });
     }
-  });
+  }
 }
-
 </script>

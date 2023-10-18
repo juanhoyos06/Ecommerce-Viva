@@ -57,31 +57,35 @@
         </v-container>
     </v-item-group>
 </template>
-<script setup>
+
+<script>
+import { ref, onBeforeMount } from 'vue';
 import axios from "axios";
 
-const products = ref([])
-const dialog = ref(false)
-const selectedProduct = ref({})
+export default {
+  name: 'ViewProducts', // Puedes poner el nombre que desees para tu componente
+  data() {
+    return {
+      products: [],
+      dialog: false,
+      selectedProduct: {}
+    };
+  },
+  created() {
+    this.loadProducts();
+  },
+  methods: {
+    async loadProducts() {
+      const url = 'http://localhost:3001/products';
+      const { data } = await axios.get(url);
+      console.log(data);
+      this.products = data;
+    },
+    openDialog(item) {
+      this.selectedProduct = item;
+      this.dialog = true;
+    },
 
-
-
-onBeforeMount(() => {
-    loadProducts()
-
-})
-const loadProducts = async () => {
-    const url = 'http://localhost:3001/products'
-    const { data } = await axios.get(url)
-    console.log(data);
-    products.value = data
+  }
 }
-
-const openDialog = (item) => {
-    selectedProduct.value = item
-    dialog.value = true
-}
-// const loadProductsByCategory = (categoryName) => {
-//     products.value = products.value.filter(product => product.category === categoryName);
-// }
 </script>
