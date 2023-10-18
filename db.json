@@ -25,173 +25,155 @@
       "password": "manu11"
     }
   ],
-  "products":[
+  "products": [
     {
       "id": 1,
       "name": "Camiseta Regular Fit Azul",
-      "image":"Camiseta-de-cuello-redondo-Regular-Fit---Azul-claro---H-M-CO.jpg",
+      "image": "Camiseta-de-cuello-redondo-Regular-Fit---Azul-claro---H-M-CO.jpg",
       "category": "Ropa Hombre",
       "brand": "h&m",
       "price": 74900
-
     },
     {
       "id": 2,
       "name": "Camiseta Regular Fit Negra",
-      "image":"Camiseta-de-cuello-redondo-Regular-Fit---Negro---H-M-CO.jpg",
+      "image": "Camiseta-de-cuello-redondo-Regular-Fit---Negro---H-M-CO.jpg",
       "category": "Ropa Hombre",
       "brand": "h&m",
       "price": 74900
-
     },
     {
       "id": 3,
       "name": "Camiseta Loose Fit Verde",
-      "image":"Camiseta-Loose-Fit---Verde-oscuro---H-M-CO.jpg",
+      "image": "Camiseta-Loose-Fit---Verde-oscuro---H-M-CO.jpg",
       "category": "Ropa Hombre",
       "brand": "h&m",
       "price": 64900
-
     },
     {
       "id": 4,
       "name": "Camiseta Relaxed Fit Azul",
-      "image":"Camiseta-Relaxed-Fit---Blue---H-M-CO.jpg",
+      "image": "Camiseta-Relaxed-Fit---Blue---H-M-CO.jpg",
       "category": "Ropa Hombre",
       "brand": "h&m",
       "price": 84900
-
     },
     {
       "id": 5,
       "name": "Camiseta Relaxed Fit Naranja",
-      "image":"Camiseta-Relaxed-Fit---Naranja-oscuro---H-M-CO.jpg",
+      "image": "Camiseta-Relaxed-Fit---Naranja-oscuro---H-M-CO.jpg",
       "category": "Ropa Hombre",
       "brand": "h&m",
       "price": 84900
-
     },
     {
       "id": 6,
       "name": "Camiseta Relaxed Fit Marron",
-      "image":"Camiseta-Relaxed-Fit-en-algodon---Marron-oscuro-Rayas---H-M-CO.jpg",
+      "image": "Camiseta-Relaxed-Fit-en-algodon---Marron-oscuro-Rayas---H-M-CO.jpg",
       "category": "Ropa Hombre",
       "brand": "h&m",
       "price": 84900
-
     },
     {
       "id": 7,
       "name": "Joggers Skinny Fit Azul",
-      "image":"Joggers-cargo-en-nailon-Skinny-Fit---Azul-acero---H-M-CO.jpg",
+      "image": "Joggers-cargo-en-nailon-Skinny-Fit---Azul-acero---H-M-CO.jpg",
       "category": "Ropa Hombre",
       "brand": "h&m",
       "price": 89900
-
     },
     {
       "id": 8,
       "name": "Joggers Skinny Fit Gris",
-      "image":"Joggers-cargo-en-nailon-Skinny-Fit---Gris-oscuro---H-M-CO.jpg",
+      "image": "Joggers-cargo-en-nailon-Skinny-Fit---Gris-oscuro---H-M-CO.jpg",
       "category": "Ropa Hombre",
       "brand": "h&m",
       "price": 89900
-
     },
     {
       "id": 9,
       "name": "Pantalo Bota Tubo Azul Oscuro",
-      "image":"Pantalon-bota-tubo---Azul-oscuro-Raya-tiza---H-M-CO.jpg",
+      "image": "Pantalon-bota-tubo---Azul-oscuro-Raya-tiza---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 109900
-
     },
     {
       "id": 10,
       "name": "Pantalo Bota Tubo Beige Cuadros",
-      "image":"Pantalon-bota-tubo---Beige-Cuadros---H-M-CO.jpg",
+      "image": "Pantalon-bota-tubo---Beige-Cuadros---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 109900
-
     },
     {
       "id": 11,
       "name": "Pantalo Cargo Beige",
-      "image":"Pantalon-cargo-de-sarga---Beige-claro---H-M-CO.jpg",
+      "image": "Pantalon-cargo-de-sarga---Beige-claro---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 120000
-
     },
     {
       "id": 12,
       "name": "Pantalo Cargo Verde Caqui",
-      "image":"Pantalon-cargo-de-sarga---Verde-caqui-oscuro---H-M-CO.jpg",
+      "image": "Pantalon-cargo-de-sarga---Verde-caqui-oscuro---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 120000
-
     },
     {
       "id": 13,
       "name": "Pantalo Cargo Gris",
-      "image":"Pantalon-cargo-en-lona---Gris-claro---H-M-CO.jpg",
+      "image": "Pantalon-cargo-en-lona---Gris-claro---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 120000
-
     },
     {
       "id": 14,
       "name": "Saco Relaxed Fit Blanco",
-      "image":"Saco-Relaxed-Fit---Light-purple-Pokemon---H-M-CO.jpg",
+      "image": "Saco-Relaxed-Fit---Light-purple-Pokemon---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 114900
-
     },
     {
       "id": 15,
       "name": "Saco Relaxed Fit Negro",
-      "image":"Saco-Relaxed-Fit---Negro---H-M-CO.jpg",
+      "image": "Saco-Relaxed-Fit---Negro---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 114900
-
     },
     {
       "id": 16,
       "name": "Vestido Acanalado Blanco",
-      "image":"Vestido-acanalado-con-falda-con-vuelo---Blanco---H-M-CO.jpg",
+      "image": "Vestido-acanalado-con-falda-con-vuelo---Blanco---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 114900
-
     },
     {
       "id": 17,
       "name": "Vestido Punto Negro",
-      "image":"Vestido-de-punto-tejido---Negro---H-M-CO.jpg",
+      "image": "Vestido-de-punto-tejido---Negro---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 114900
-
     },
     {
       "id": 18,
       "name": "Vestido Cruzado Negro",
-      "image":"Vestido-cruzado-con-volantes---Negro---H-M-CO.jpg",
+      "image": "Vestido-cruzado-con-volantes---Negro---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 114900
-
     },
     {
       "id": 19,
       "name": "Vestido Punto Negro Rayas",
-      "image":"Vestido-de-punto-tejido---Negro-Rayas---H-M-CO.jpg",
+      "image": "Vestido-de-punto-tejido---Negro-Rayas---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 114900
@@ -199,10 +181,38 @@
     {
       "id": 20,
       "name": "Vestido Linea A Turquesa",
-      "image":"Vestido-linea-A---Turquesa-Estampado---H-M-CO.jpg",
+      "image": "Vestido-linea-A---Turquesa-Estampado---H-M-CO.jpg",
       "category": "Ropa Mujer",
       "brand": "h&m",
       "price": 114900
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Ropa Hombre"
+    },
+    {
+      "id": 2,
+      "name": "Ropa Mujer"
+    },
+    {
+      "id": 3,
+      "name": "Ropa Niño"
+    }
+  ],
+  "brands":[
+    {
+      "id":1,
+      "name": "h&m"
+    },
+    {
+      "id":2,
+      "name": "Matelsa"
+    },
+    {
+      "id":3,
+      "name": "Gef"
     }
   ]
 }

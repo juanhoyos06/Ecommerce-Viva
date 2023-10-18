@@ -28,7 +28,7 @@
                     </v-card-title>
                     <v-row no-gutters>
                         <v-col cols="6">
-                            <v-img :src="product.image" height="auto" cover>
+                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.image}`" height="auto" cover>
                             </v-img>
                         </v-col>
                         <v-col cols="6" class="d-flex align-center">
@@ -38,14 +38,14 @@
                                 </v-card-subtitle>
 
                                 <v-card-text>
-                                    {{ selectedProduct.brand || 'No hay descripción para mostrar...' }}
+                                    {{ selectedProduct.brand || 'Sin Marca' }}
                                 </v-card-text>
                                 <v-card-subtitle>
                                     Categoria
                                 </v-card-subtitle>
 
                                 <v-card-text>
-                                    {{ selectedProduct.Category || 'No hay descripción para mostrar...' }}
+                                    {{ selectedProduct.category || 'Sin Categoria' }}
                                 </v-card-text>
 
                             </v-row>
@@ -72,7 +72,10 @@ const loadTasks = async () => {
     console.log(data);
     products.value = data
 }
-
+const openDialog = (item) => {
+  selectedProduct.value = item
+  dialog.value = true
+}
 // const deleteTasks = async (item) => {
 //     const url = `http://localhost:3001/tasks/${item.id}`
 //     const { data } = await axios.delete(url)
