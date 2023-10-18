@@ -9,22 +9,19 @@
               <v-card-title class="card_title">Filtros</v-card-title>
               <br>
               <v-list-item-title>Categorias</v-list-item-title>
-              <v-list-item prepend-icon="mdi-email" title="Inbox" value="inbox"></v-list-item>
-              <v-list-item prepend-icon="mdi-account-supervisor-circle" title="Supervisors"
-                value="supervisors"></v-list-item>
+              <ProductsFilterCategory />
+
               <v-list-item-title>Marcas</v-list-item-title>
-              <v-list-item prepend-icon="mdi-email" title="Inbox" value="inbox"></v-list-item>
-              <v-list-item prepend-icon="mdi-account-supervisor-circle" title="Supervisors"
-                value="supervisors"></v-list-item>
+              <ProductsFilterBrand />
+
               <v-list-item-title>Precios</v-list-item-title>
-              <v-list-item prepend-icon="mdi-email" title="Inbox" value="inbox"></v-list-item>
-              <v-list-item prepend-icon="mdi-account-supervisor-circle" title="Supervisors"
-                value="supervisors"></v-list-item>
+             
+              
               <v-list-item prepend-icon="mdi-clock-start" title="Clock-in" value="clockin"></v-list-item>
             </v-list>
           </v-navigation-drawer>
         </v-col>
-        <v-col cols="9" class="pa-0"> 
+        <v-col cols="9" class="pa-0">
           <v-main class="pa-0 overflow-y-auto" style="max-height: 100vh;">
             <ProductsViewProducts />
           </v-main>
@@ -34,6 +31,8 @@
   </v-card>
 </template>
 <script>
+
+
 definePageMeta({
   layout: "default",
 });
