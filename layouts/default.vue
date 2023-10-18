@@ -24,7 +24,7 @@
 
 <script>
 import UserDialog from "@/components/products/UserDialog.vue";
-import axios from "axios";
+import { currentUser } from "@/user.js";
 
 export default {
   data() {
@@ -40,7 +40,12 @@ export default {
   },
   methods: {
     openUserDialog() {
-      this.$refs.userDialog.$data.dialog = true;
+      if(currentUser.user != undefined){
+        this.$refs.userDialog.$data.dialog = true;
+      }
+      else{
+        this.$router.push("/login");
+      }
     },
   },
 };

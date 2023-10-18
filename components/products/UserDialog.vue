@@ -4,14 +4,14 @@
       <v-card-title>Información de usuario</v-card-title>
       <v-card-text>
         <div>
-          <strong>Nombre:</strong> {{ user.name }}
+          <strong>Nombre:</strong> {{ currentUser.user ? currentUser.user.name : "" }}
         </div>
         <div>
-          <strong>Correo:</strong> {{ user.email }}
+          <strong>Correo:</strong> {{ currentUser.user ? currentUser.user.email : "" }}
         </div>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="goToProfile">Ver perfil</v-btn>
+        <v-btn @click="editar">Editar</v-btn>
         <v-btn @click="logOut">Salir</v-btn>
       </v-card-actions>
     </v-card>
@@ -20,38 +20,42 @@
 
 <script>
 import axios from "axios";
+import { currentUser } from "@/user.js";
 
 export default {
   data() {
     return {
       dialog: false,
-      user: {
-        name: "",
-        email: "",
-      },
     };
   },
   methods: {
     async fetchUser() {
       try {
-        const response = await axios.get("http://localhost:3001/users"); // Fetch the first user, or adjust the URL as needed
-        this.user = response.data[0]; // Assuming the first user in the response is the one you want
+        const response = await axios.get("http://localhost:3001/users");
+        //currentUser.setUser(response.data[0]);
       } catch (error) {
-        console.error("Error con la información del usuario", error);
+        console.error("Error fetching user data", error);
       }
     },
-    goToProfile() {
-      this.$router.push("/profile");
-      this.dialog = false;
+    editar() {
+        this.dialog = false;
+      
     },
     logOut() {
       // Implement your logout logic here
+      currentUser.setUser(null);
       this.$router.push("/login");
     },
   },
+  computed: {
+    currentUser() {
+      return currentUser;
+    },
+  },
   mounted() {
-    // Fetch user data when the component is mounted
-    this.fetchUser();
+    if (!currentUser.user) {
+      this.fetchUser();
+    }
   },
 };
 </script>
