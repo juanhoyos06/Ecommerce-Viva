@@ -17,8 +17,7 @@
     </v-list>
   </div>
   <div style="text-align: right;">
-    <v-btn style="background-color: #FFCC00;" variant="text" size="small"
-      @click="loadFilteredProducts">Aplicar</v-btn>
+    <v-btn style="background-color: #FFCC00;" variant="text" size="small" @click="loadFilteredProducts">Aplicar</v-btn>
   </div>
 </template>
 <script setup>
@@ -36,7 +35,7 @@ const loadCategories = async () => {
   console.log(data);
   categories.value = data
 }
-const loadFilteredProducts = async () =>{
+const loadFilteredProducts = () => {
   selectedCategories.value.forEach(categoryId => {
     const category = categories.value.find(cat => cat.id === categoryId);
     if (category) {
@@ -44,4 +43,5 @@ const loadFilteredProducts = async () =>{
     }
   });
 }
+
 </script>

@@ -15,7 +15,8 @@
 
 
                             <v-card-title class="text-center">{{ product.name }}</v-card-title>
-                            <v-card-title class="text-center" style="font-weight: bold;">{{ '$'+ product.price }}</v-card-title>
+                            <v-card-title class="text-center" style="font-weight: bold;">{{ '$' + product.price
+                            }}</v-card-title>
                         </v-card>
                     </v-item>
                 </v-col>
@@ -63,36 +64,24 @@ const products = ref([])
 const dialog = ref(false)
 const selectedProduct = ref({})
 
+
+
 onBeforeMount(() => {
-    loadTasks()
+    loadProducts()
+
 })
-const loadTasks = async () => {
+const loadProducts = async () => {
     const url = 'http://localhost:3001/products'
     const { data } = await axios.get(url)
     console.log(data);
     products.value = data
 }
+
 const openDialog = (item) => {
-  selectedProduct.value = item
-  dialog.value = true
+    selectedProduct.value = item
+    dialog.value = true
 }
-// const deleteTasks = async (item) => {
-//     const url = `http://localhost:3001/tasks/${item.id}`
-//     const { data } = await axios.delete(url)
-//     loadTasks()
-// }
-// const editTasks = async (item) => {
-//     isEdit.value = true
-//     editTask.value = { ... item}
-//     loadTasks()
-//     console.log(editTask.value);
-
-// }
-
-// const updateTask = (isUpdated) =>{
-//     console.log(isUpdated);
-//     isEdit.value = false
-//     editTask.value = null
-//     loadTasks()
+// const loadProductsByCategory = (categoryName) => {
+//     products.value = products.value.filter(product => product.category === categoryName);
 // }
 </script>
