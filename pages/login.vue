@@ -60,13 +60,14 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import { currentUser } from "@/user.js";
 
 export default {
   data() {
     return {
       email: "",
       password: "",
-      showPassword: false, // Nuevo dato para controlar la visibilidad de la contraseña
+      showPassword: false,
       users: [],
     };
   },
@@ -87,9 +88,10 @@ export default {
       );
 
       if (foundUser) {
+        currentUser.setUser(foundUser);
+
         this.$router.push("/");
       } else {
-        // Muestra una alerta de SweetAlert2 en caso de credenciales incorrectas
         Swal.fire({
           icon: "error",
           title: "Credenciales incorrectas",

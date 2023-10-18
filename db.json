@@ -23,6 +23,12 @@
       "name": "manu",
       "email": "manu11@gmail.com",
       "password": "manu11"
+    },
+    {
+      "id": 5,
+      "name": "Juan",
+      "email": "Jujosal007@gmail.com",
+      "password": "popo"
     }
   ],
   "products": [
@@ -201,17 +207,17 @@
       "name": "Ropa Niño"
     }
   ],
-  "brands":[
+  "brands": [
     {
-      "id":1,
+      "id": 1,
       "name": "h&m"
     },
     {
-      "id":2,
+      "id": 2,
       "name": "Matelsa"
     },
     {
-      "id":3,
+      "id": 3,
       "name": "Gef"
     }
   ]
