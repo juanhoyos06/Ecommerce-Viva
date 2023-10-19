@@ -7,22 +7,22 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 Make sure to install the dependencies:
 
 ```bash
-# npm
+# npm dependencias
 npm i
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+```
 
 ```bash
 # npm apifake
 npm run apifake
 
-# npm
+# npm devpelopment server
 npm run dev
 
 ```
 
+## Development Server
+
+Start the development server on `http://localhost:3000`:
 
 
 # yarn
