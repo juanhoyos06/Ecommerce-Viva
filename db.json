@@ -29,6 +29,12 @@
       "name": "Juan",
       "email": "Jujosal007@gmail.com",
       "password": "popo"
+    },
+    {
+      "id": 6,
+      "name": "gomez",
+      "email": "gomez@gmail.com",
+      "password": "gomez"
     }
   ],
   "products": [

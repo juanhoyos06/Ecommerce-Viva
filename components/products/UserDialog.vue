@@ -4,14 +4,16 @@
       <v-card-title>Información de usuario</v-card-title>
       <v-card-text>
         <div>
-          <strong>Nombre:</strong> {{ currentUser.user ? currentUser.user.name : "" }}
+          <strong>Nombre:</strong>
+          {{ currentUser.user ? currentUser.user.name : "" }}
         </div>
         <div>
-          <strong>Correo:</strong> {{ currentUser.user ? currentUser.user.email : "" }}
+          <strong>Correo:</strong>
+          {{ currentUser.user ? currentUser.user.email : "" }}
         </div>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="editar">Editar</v-btn>
+        <v-btn @click="editar" to="/editar-usuario">Editar</v-btn>
         <v-btn @click="logOut">Salir</v-btn>
       </v-card-actions>
     </v-card>
@@ -38,8 +40,7 @@ export default {
       }
     },
     editar() {
-        this.dialog = false;
-      
+      this.dialog = false;
     },
     logOut() {
       // Implement your logout logic here
