@@ -19,7 +19,7 @@
       <v-sheet width="300" class="mx-auto">
         <div class="mt-2">
           <v-card>
-            <v-card-title class="headline">Editar Perfil</v-card-title>
+            <v-card-title class="headline">Editar perfil</v-card-title>
             <v-card-text>
               <v-text-field v-model="name" label="Nombre"></v-text-field>
               <v-text-field v-model="email" label="Correo"></v-text-field>
@@ -40,6 +40,7 @@
 <script>
 import axios from "axios";
 import { currentUser } from "@/user.js";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -49,38 +50,61 @@ export default {
       name: currentUser.user ? currentUser.user.name : "",
       email: currentUser.user ? currentUser.user.email : "",
       password: currentUser.user ? currentUser.user.password : "",
+      emailValid: true, // Agregar propiedad para la validación del correo
     };
   },
   methods: {
     async guardarCambios() {
-      try {
-        // Preparar los datos para actualizar
-        const dataToUpdate = {
-          id: this.id,
-          name: this.name,
-          email: this.email,
-          password: this.password,
-        };
+      // Validar el correo electrónico
+      this.emailValid = this.validateEmail(this.email);
 
-        // Realizar la solicitud PUT a la base de datos (ajusta la URL según tu API)
-        await axios.put(
-          `http://localhost:3001/users/${currentUser.user.id}`,
-          dataToUpdate
-        );
+      if (this.emailValid) {
+        try {
+          // Preparar los datos para actualizar
+          const dataToUpdate = {
+            id: this.id,
+            name: this.name,
+            email: this.email,
+            password: this.password,
+          };
 
-        // Actualizar el usuario en currentUser si es necesario
-        currentUser.setUser({
-          ...currentUser.user,
-          name: this.name,
-          email: this.email,
+          // Realizar la solicitud PUT a la base de datos (ajusta la URL según tu API)
+          await axios.put(
+            `http://localhost:3001/users/${currentUser.user.id}`,
+            dataToUpdate
+          );
+
+          // Actualizar el usuario en currentUser si es necesario
+          currentUser.setUser({
+            ...currentUser.user,
+            name: this.name,
+            email: this.email,
+          });
+
+          // Redirigir o mostrar un mensaje de éxito
+          Swal.fire({
+            title: "Listo",
+            text: "Perfil actualizado",
+            icon: "success",
+          });
+          this.$router.push("./");
+        } catch (error) {
+          console.error("Error al actualizar el usuario", error);
+          // Manejar errores o mostrar un mensaje de error al usuario
+        }
+      } else {
+        // Mostrar una alerta si el correo no es válido
+        Swal.fire({
+          title: "Error",
+          text: "El correo electrónico no tiene un formato válido",
+          icon: "error",
         });
-
-        // Redirigir o mostrar un mensaje de éxito
-        this.$router.push("./");
-      } catch (error) {
-        console.error("Error al actualizar el usuario", error);
-        // Manejar errores o mostrar un mensaje de error al usuario
       }
+    },
+    validateEmail(email) {
+      // Expresión regular para validar el formato de un correo electrónico
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailRegex.test(email);
     },
     logOut() {
       currentUser.setUser(null);
