@@ -47,9 +47,7 @@
         <div class="mt-2">
           <p class="text-body-2">
             ¿No tienes cuenta?
-            <NuxtLink to="/register">
-              Registrarse
-            </NuxtLink>
+            <NuxtLink to="/register"> Registrarse </NuxtLink>
           </p>
         </div>
       </v-sheet>
