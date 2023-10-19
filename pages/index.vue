@@ -27,10 +27,10 @@
                   </v-list-item>
                 </v-list>
               </div>
-              <div style="text-align: right;">
+              <!-- <div style="text-align: right;">
                 <v-btn style="background-color: #FFCC00;" variant="text" size="small"
                   @click="loadSelectedCategories">Aplicar</v-btn>
-              </div>
+              </div> -->
               <v-list-item-title>Marcas</v-list-item-title>
               <div style="max-height: 20px00px; overflow-y: auto;">
                 <v-list select-strategy="classic">
@@ -39,7 +39,7 @@
                     <template v-slot:prepend="{ isActive }">
 
                       <v-list-item-action start>
-                        <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
+                        <v-checkbox-btn :value="brand.name" v-model="selectedBrands"></v-checkbox-btn>
                       </v-list-item-action>
                     </template>
                     <v-list-item-title>
@@ -49,9 +49,9 @@
                   </v-list-item>
                 </v-list>
               </div>
-              <div style="text-align: right;">
+              <!-- <div style="text-align: right;">
                 <v-btn style="background-color: #FFCC00;" variant="text" size="small" @click="loadSelectedBrands">Aplicar</v-btn>
-              </div>
+              </div> -->
 
               <v-list-item-title>Precios</v-list-item-title>
              
@@ -62,7 +62,9 @@
         </v-col>
         <v-col cols="9" class="pa-0">
           <v-main class="pa-0 overflow-y-auto" style="max-height: 100vh">
-            <ProductsViewProducts :filter="selectedCategories" />
+            <ProductsViewProducts v-if="selectedCategories.length > 0" :filter="selectedCategories" />
+            <ProductsViewProducts v-else />
+
           </v-main>
         </v-col>
       </v-row>
@@ -78,9 +80,8 @@ definePageMeta({
 import axios from "axios";
 import { componentMethodsMixin } from '~/components/products/ViewProducts.vue';
 
-// import {default} from '~/components/products/ViewProducts.vue';
 export default {
-  name: 'FilterCategory', // Puedes poner el nombre que desees para tu componente
+  name: 'FilterCategory',
   mixins: [componentMethodsMixin],
   
   data() {
@@ -107,24 +108,24 @@ export default {
       const { data } = await axios.get(url);
       console.log(data);
       this.brands = data;
-    },
-    loadSelectedCategories() {
-      this.selectedCategories.forEach(categoryId => {
-        const category = this.categories.find(cat => cat.id === categoryId);
-        if (category) {
-          console.log(category.name);
-          this.myExportedMethod(category.name);
-        }
-      });
-    },
-    loadSelectedBrands() {
-      this.selectedCategories.forEach(brandId => {
-        const brand = this.brands.find(bra => bra.id === brandId);
-        if (brand) {
-          console.log(brand.name);
-        }
-      });
     }
+    // loadSelectedCategories() {
+    //   this.selectedCategories.forEach(categoryId => {
+    //     const category = this.categories.find(cat => cat.id === categoryId);
+    //     if (category) {
+    //       console.log(category.name);
+    //       this.myExportedMethod(category.name);
+    //     }
+    //   });
+    // },
+    // loadSelectedBrands() {
+    //   this.selectedCategories.forEach(brandId => {
+    //     const brand = this.brands.find(bra => bra.id === brandId);
+    //     if (brand) {
+    //       console.log(brand.name);
+    //     }
+    //   });
+    // }
   }
 }
 

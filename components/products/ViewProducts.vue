@@ -104,6 +104,7 @@ export default {
     },
     watch: {
         filter(newFilter) {
+            console.log('El filtro que esta entrando es:'+newFilter);
             if (newFilter) {
 
                 this.myExportedMethod(newFilter)
