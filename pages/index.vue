@@ -17,7 +17,7 @@
                     <template v-slot:prepend="{ isActive }">
 
                       <v-list-item-action start>
-                        <v-checkbox-btn :value="category.id" v-model="selectedCategories"></v-checkbox-btn>
+                        <v-checkbox-btn :value="category.name" v-model="selectedCategories"></v-checkbox-btn>
                       </v-list-item-action>
                     </template>
                     <v-list-item-title>
@@ -62,7 +62,7 @@
         </v-col>
         <v-col cols="9" class="pa-0">
           <v-main class="pa-0 overflow-y-auto" style="max-height: 100vh">
-            <ProductsViewProducts />
+            <ProductsViewProducts :filter="selectedCategories" />
           </v-main>
         </v-col>
       </v-row>
@@ -71,8 +71,61 @@
 </template>
 <script>
 
-
 definePageMeta({
   layout: "default",
 });
+
+import axios from "axios";
+import { componentMethodsMixin } from '~/components/products/ViewProducts.vue';
+
+// import {default} from '~/components/products/ViewProducts.vue';
+export default {
+  name: 'FilterCategory', // Puedes poner el nombre que desees para tu componente
+  mixins: [componentMethodsMixin],
+  
+  data() {
+    return {
+      categories: [],
+      selectedCategories: [],
+      brands: [],
+      selectedBrands: []
+    };
+  },
+  created() {
+    this.loadCategories();
+    this.loadBrands();
+  },
+  methods: {
+    async loadCategories() {
+      const url = 'http://localhost:3001/categories';
+      const { data } = await axios.get(url);
+      console.log(data);
+      this.categories = data;
+    },
+    async loadBrands() {
+      const url = 'http://localhost:3001/brands';
+      const { data } = await axios.get(url);
+      console.log(data);
+      this.brands = data;
+    },
+    loadSelectedCategories() {
+      this.selectedCategories.forEach(categoryId => {
+        const category = this.categories.find(cat => cat.id === categoryId);
+        if (category) {
+          console.log(category.name);
+          this.myExportedMethod(category.name);
+        }
+      });
+    },
+    loadSelectedBrands() {
+      this.selectedCategories.forEach(brandId => {
+        const brand = this.brands.find(bra => bra.id === brandId);
+        if (brand) {
+          console.log(brand.name);
+        }
+      });
+    }
+  }
+}
+
 </script>

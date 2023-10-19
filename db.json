@@ -14,7 +14,7 @@
     },
     {
       "id": 3,
-      "name": "JUAN",
+      "name": "Juancho",
       "email": "juan@gmail.com",
       "password": "juan"
     },
@@ -42,7 +42,7 @@
       "id": 1,
       "name": "Camiseta Regular Fit Azul",
       "image": "Camiseta-de-cuello-redondo-Regular-Fit---Azul-claro---H-M-CO.jpg",
-      "category": "Ropa Hombre",
+      "category": "Ropa Niño",
       "brand": "h&m",
       "price": 74900
     },
@@ -50,7 +50,7 @@
       "id": 2,
       "name": "Camiseta Regular Fit Negra",
       "image": "Camiseta-de-cuello-redondo-Regular-Fit---Negro---H-M-CO.jpg",
-      "category": "Ropa Hombre",
+      "category": "Ropa Niño",
       "brand": "h&m",
       "price": 74900
     },
@@ -58,7 +58,7 @@
       "id": 3,
       "name": "Camiseta Loose Fit Verde",
       "image": "Camiseta-Loose-Fit---Verde-oscuro---H-M-CO.jpg",
-      "category": "Ropa Hombre",
+      "category": "Ropa Niño",
       "brand": "h&m",
       "price": 64900
     },

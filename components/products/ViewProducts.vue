@@ -21,33 +21,44 @@
                     </v-item>
                 </v-col>
             </v-row>
-            <v-dialog v-model="dialog" max-width="700px" max-height="400px">
+            <v-dialog v-model="dialog" max-width="700px" max-height="auto">
                 <v-card style="border-radius: 20px">
-                    <v-card-title class="text-center"
-                        style="font-size: 30px; font-family: Times New Roman, serif; font-weight: bold; background-color: black; color: white;">
-                        {{ selectedProduct.name }}
-                    </v-card-title>
+
                     <v-row no-gutters>
                         <v-col cols="6">
-                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.image}`" height="auto" cover>
+                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.image}`" height="390px" cover>
                             </v-img>
                         </v-col>
-                        <v-col cols="6" class="d-flex align-center">
-                            <v-row no-gutters>
+                        <v-col cols="6">
+                            <v-row><br><br><br><br><br><br></v-row>
+                            <v-row no-gutters class="justify-center">
+
+                                <v-card-title
+                                    style="font-size: 25px; font-family: Times New Roman, serif; font-weight: bold">
+                                    {{ selectedProduct.name }}
+                                </v-card-title>
+                            </v-row>
+                            <v-row no-gutters class="justify-center">
                                 <v-card-subtitle>
-                                    Marca
+                                    Marca: {{ selectedProduct.brand || 'Sin Marca' }}
                                 </v-card-subtitle>
 
-                                <v-card-text>
-                                    {{ selectedProduct.brand || 'Sin Marca' }}
-                                </v-card-text>
                                 <v-card-subtitle>
-                                    Categoria
+                                    Categoria: {{ selectedProduct.category || 'Sin Categoria' }}
                                 </v-card-subtitle>
+                            </v-row>
+                                <v-row no-gutters class="justify-center">
 
-                                <v-card-text>
-                                    {{ selectedProduct.category || 'Sin Categoria' }}
-                                </v-card-text>
+                                    <v-card-title
+                                        style="font-size: 25px; font-family: Times New Roman, serif; font-weight: bold">
+                                        ${{ selectedProduct.price }}
+                                    </v-card-title>
+                                </v-row>
+                                <v-row no-gutters class="justify-center">
+                                    <v-btn style="background-color: #FFCC00;" variant="text" size="small" prepend-icon="mdi-cart-minus"
+                                        @click="">Agregar</v-btn>
+
+                                
 
                             </v-row>
                         </v-col>
@@ -62,8 +73,25 @@
 import axios from "axios";
 
 
+export const componentMethodsMixin = {
+
+    methods: {
+        async myExportedMethod(category) {
+            console.log(category, category[0]);
+            const url = 'http://localhost:3001/products';
+            const { data } = await axios.get(url);
+            this.products = data.filter(product => product.category === category[0])
+            console.log(this.products);
+        }
+
+    }
+}
 export default {
     name: 'ViewProducts', // Puedes poner el nombre que desees para tu componente
+    mixins: [componentMethodsMixin],
+    props: {
+        filter: { type: Object }
+    },
     data() {
         return {
             products: [],
@@ -73,6 +101,16 @@ export default {
     },
     created() {
         this.loadProducts();
+    },
+    watch: {
+        filter(newFilter) {
+            if (newFilter) {
+
+                this.myExportedMethod(newFilter)
+            }
+            // console.log(newFilter);
+
+        }
     },
     methods: {
         async loadProducts() {
@@ -84,16 +122,6 @@ export default {
         openDialog(item) {
             this.selectedProduct = item;
             this.dialog = true;
-        },
-      
-
-    }
-}
-export const componentMethodsMixin = {
-    methods: {
-        myExportedMethod(msg) {
-            this.products = this.products.filter(product => product.category === msg) 
-            loadProducts()
         }
     }
 }
