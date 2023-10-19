@@ -116,8 +116,16 @@ export default {
       return currentUser;
     },
   },
-  definePageMeta: {
-    layout: "blank",
-  },
 };
+definePageMeta({
+  layout: "blank",
+});
 </script>
+<style>
+body {
+  width: 100%;
+  height: 100%;
+  background-image: url(./assets/img/fondo_login.jpg);
+  background-size: cover;
+}
+</style>
