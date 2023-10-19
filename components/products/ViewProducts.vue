@@ -59,33 +59,43 @@
 </template>
 
 <script>
-import { ref, onBeforeMount } from 'vue';
 import axios from "axios";
 
-export default {
-  name: 'ViewProducts', // Puedes poner el nombre que desees para tu componente
-  data() {
-    return {
-      products: [],
-      dialog: false,
-      selectedProduct: {}
-    };
-  },
-  created() {
-    this.loadProducts();
-  },
-  methods: {
-    async loadProducts() {
-      const url = 'http://localhost:3001/products';
-      const { data } = await axios.get(url);
-      console.log(data);
-      this.products = data;
-    },
-    openDialog(item) {
-      this.selectedProduct = item;
-      this.dialog = true;
-    },
 
-  }
+export default {
+    name: 'ViewProducts', // Puedes poner el nombre que desees para tu componente
+    data() {
+        return {
+            products: [],
+            dialog: false,
+            selectedProduct: {},
+        };
+    },
+    created() {
+        this.loadProducts();
+    },
+    methods: {
+        async loadProducts() {
+            const url = 'http://localhost:3001/products';
+            const { data } = await axios.get(url);
+            console.log(data);
+            this.products = data;
+        },
+        openDialog(item) {
+            this.selectedProduct = item;
+            this.dialog = true;
+        },
+      
+
+    }
 }
+export const componentMethodsMixin = {
+    methods: {
+        myExportedMethod(msg) {
+            this.products = this.products.filter(product => product.category === msg) 
+            loadProducts()
+        }
+    }
+}
+
 </script>
