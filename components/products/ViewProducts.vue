@@ -72,23 +72,8 @@
 <script>
 import axios from "axios";
 
-
-export const componentMethodsMixin = {
-
-    methods: {
-        async myExportedMethod(category) {
-            console.log(category, category[0]);
-            const url = 'http://localhost:3001/products';
-            const { data } = await axios.get(url);
-            this.products = data.filter(product => product.category === category[0])
-            console.log(this.products);
-        }
-
-    }
-}
 export default {
     name: 'ViewProducts', // Puedes poner el nombre que desees para tu componente
-    mixins: [componentMethodsMixin],
     props: {
         filter: { type: Object }
     },
@@ -107,7 +92,7 @@ export default {
             console.log('El filtro que esta entrando es:'+newFilter);
             if (newFilter) {
 
-                this.myExportedMethod(newFilter)
+                this.filterByCategory(newFilter)
             }
             // console.log(newFilter);
 
@@ -123,6 +108,13 @@ export default {
         openDialog(item) {
             this.selectedProduct = item;
             this.dialog = true;
+        },
+        async filterByCategory(category) {
+            console.log(category, category[0]);
+            const url = 'http://localhost:3001/products';
+            const { data } = await axios.get(url);
+            this.products = data.filter(product => product.category === category[0])
+            console.log(this.products);
         }
     }
 }

@@ -78,11 +78,9 @@ definePageMeta({
 });
 
 import axios from "axios";
-import { componentMethodsMixin } from '~/components/products/ViewProducts.vue';
 
 export default {
   name: 'FilterCategory',
-  mixins: [componentMethodsMixin],
   
   data() {
     return {
@@ -109,23 +107,6 @@ export default {
       console.log(data);
       this.brands = data;
     }
-    // loadSelectedCategories() {
-    //   this.selectedCategories.forEach(categoryId => {
-    //     const category = this.categories.find(cat => cat.id === categoryId);
-    //     if (category) {
-    //       console.log(category.name);
-    //       this.myExportedMethod(category.name);
-    //     }
-    //   });
-    // },
-    // loadSelectedBrands() {
-    //   this.selectedCategories.forEach(brandId => {
-    //     const brand = this.brands.find(bra => bra.id === brandId);
-    //     if (brand) {
-    //       console.log(brand.name);
-    //     }
-    //   });
-    // }
   }
 }
 
