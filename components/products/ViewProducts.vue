@@ -89,7 +89,6 @@ export default {
     },
     watch: {
         filter(newFilter) {
-            console.log('El filtro que esta entrando es:'+newFilter);
             if (newFilter) {
 
                 this.filterByCategory(newFilter)
@@ -102,7 +101,6 @@ export default {
         async loadProducts() {
             const url = 'http://localhost:3001/products';
             const { data } = await axios.get(url);
-            console.log(data);
             this.products = data;
         },
         openDialog(item) {
@@ -110,11 +108,9 @@ export default {
             this.dialog = true;
         },
         async filterByCategory(category) {
-            console.log(category, category[0]);
             const url = 'http://localhost:3001/products';
             const { data } = await axios.get(url);
             this.products = data.filter(product => product.category === category[0])
-            console.log(this.products);
         }
     }
 }

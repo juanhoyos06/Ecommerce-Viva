@@ -55,8 +55,6 @@
 
               <v-list-item-title>Precios</v-list-item-title>
              
-              
-              <v-list-item prepend-icon="mdi-clock-start" title="Clock-in" value="clockin"></v-list-item>
             </v-list>
           </v-navigation-drawer>
         </v-col>
@@ -98,13 +96,11 @@ export default {
     async loadCategories() {
       const url = 'http://localhost:3001/categories';
       const { data } = await axios.get(url);
-      console.log(data);
       this.categories = data;
     },
     async loadBrands() {
       const url = 'http://localhost:3001/brands';
       const { data } = await axios.get(url);
-      console.log(data);
       this.brands = data;
     }
   }

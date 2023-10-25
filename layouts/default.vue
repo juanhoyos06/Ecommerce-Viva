@@ -10,7 +10,7 @@
           <v-spacer></v-spacer>
           <v-btn class="ma-5" text="Compras" />
           <v-btn icon class="ma-5"><v-icon>mdi-bell</v-icon></v-btn>
-          <v-btn icon class="ma-5"><v-icon>mdi-cart-minus</v-icon></v-btn>
+          <v-btn icon class="ma-5"><v-icon>mdi-cart</v-icon></v-btn>
           <v-btn prepend-icon="mdi-account-circle" stacked class="ma-5" @click="openUserDialog">Cuenta</v-btn> <!-- Corrected click handler -->
 
         </v-app-bar>
