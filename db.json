@@ -35,6 +35,12 @@
       "name": "gomez",
       "email": "gomez",
       "password": "gomez"
+    },
+    {
+      "id": 7,
+      "name": "juan2",
+      "email": "juan2@gmail.com",
+      "password": "1234"
     }
   ],
   "products": [
@@ -225,6 +231,34 @@
     {
       "id": 3,
       "name": "Gef"
+    }
+  ],
+  "deals": [
+    {
+      "id": 1,
+      "img": "deal_1.png"
+    },
+    {
+      "id": 2,
+      "img": "deal_2.png"
+    },
+    {
+      "id": 3,
+      "img": "deal_3.png"
+    }
+  ],
+  "shops": [
+    {
+      "id": 1,
+      "name": "Nike"
+    },
+    {
+      "id": 2,
+      "name": "Adidas"
+    },
+    {
+      "id": 3,
+      "name": "h&m"
     }
   ]
 }

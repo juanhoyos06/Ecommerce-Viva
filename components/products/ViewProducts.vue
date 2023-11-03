@@ -1,16 +1,21 @@
 <template>
+    <br><br><br>
+    <v-carousel hide-delimiters>
+        <v-carousel-item v-for="deal in deals" :key="deal.id" >
+        <v-img :src="`_nuxt/assets/img/deals/${deal.img}`"></v-img>
+        </v-carousel-item>
+    </v-carousel>
     <v-item-group selected-class="bg-primary">
         <v-container fluid>
-            <br><br><br>
             <h1 class="text-center">Productos</h1>
             <br>
             <v-row>
-                <v-col v-for="product in products" :key="product.id" cols="cols" md="4">
+                <v-col v-for="product in products" :key="product.id" cols="cols" md="3">
                     <v-item v-slot="{ selectedClass, toggle }">
-                        <v-card class="mx-auto pa-6" height="450" width="300" dark @click="openDialog(product)" color="gray"
+                        <v-card class="mx-auto pa-6" height="350" width="250" dark @click="openDialog(product)" color="gray"
                             elevation="18">
 
-                            <v-img :src="`_nuxt/assets/img/products/${product.image}`" height="330" cover>
+                            <v-img :src="`_nuxt/assets/img/products/${product.image}`" height="230" cover>
                             </v-img>
 
 
@@ -47,18 +52,18 @@
                                     Categoria: {{ selectedProduct.category || 'Sin Categoria' }}
                                 </v-card-subtitle>
                             </v-row>
-                                <v-row no-gutters class="justify-center">
+                            <v-row no-gutters class="justify-center">
 
-                                    <v-card-title
-                                        style="font-size: 25px; font-family: Times New Roman, serif; font-weight: bold">
-                                        ${{ selectedProduct.price }}
-                                    </v-card-title>
-                                </v-row>
-                                <v-row no-gutters class="justify-center">
-                                    <v-btn style="background-color: #FFCC00;" variant="text" size="small" prepend-icon="mdi-cart-minus"
-                                        @click="">Agregar</v-btn>
+                                <v-card-title
+                                    style="font-size: 25px; font-family: Times New Roman, serif; font-weight: bold">
+                                    ${{ selectedProduct.price }}
+                                </v-card-title>
+                            </v-row>
+                            <v-row no-gutters class="justify-center">
+                                <v-btn style="background-color: #FFCC00;" variant="text" size="small"
+                                    prepend-icon="mdi-cart-minus" @click="">Agregar</v-btn>
 
-                                
+
 
                             </v-row>
                         </v-col>
@@ -80,11 +85,14 @@ export default {
     data() {
         return {
             products: [],
+            deals: [],
             dialog: false,
             selectedProduct: {},
+            
         };
     },
     created() {
+        this.loadDeals();
         this.loadProducts();
     },
     watch: {
@@ -102,6 +110,11 @@ export default {
             const url = 'http://localhost:3001/products';
             const { data } = await axios.get(url);
             this.products = data;
+        },
+        async loadDeals() {
+            const url = 'http://localhost:3001/deals';
+            const { data } = await axios.get(url);
+            this.deals = data;
         },
         openDialog(item) {
             this.selectedProduct = item;

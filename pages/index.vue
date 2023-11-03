@@ -27,10 +27,7 @@
                   </v-list-item>
                 </v-list>
               </div>
-              <!-- <div style="text-align: right;">
-                <v-btn style="background-color: #FFCC00;" variant="text" size="small"
-                  @click="loadSelectedCategories">Aplicar</v-btn>
-              </div> -->
+
               <v-list-item-title>Marcas</v-list-item-title>
               <div style="max-height: 20px00px; overflow-y: auto;">
                 <v-list select-strategy="classic">
@@ -49,12 +46,27 @@
                   </v-list-item>
                 </v-list>
               </div>
-              <!-- <div style="text-align: right;">
-                <v-btn style="background-color: #FFCC00;" variant="text" size="small" @click="loadSelectedBrands">Aplicar</v-btn>
-              </div> -->
+              <v-list-item-title>Tiendas</v-list-item-title>
+              <div style="max-height: 20px00px; overflow-y: auto;">
+                <v-list select-strategy="classic">
+
+                  <v-list-item v-for="shop in shops" :key="shop.id">
+                    <template v-slot:prepend="{ isActive }">
+
+                      <v-list-item-action start>
+                        <v-checkbox-btn :value="shop.name" v-model="selectedShop"></v-checkbox-btn>
+                      </v-list-item-action>
+                    </template>
+                    <v-list-item-title>
+                      {{ shop.name }}
+                    </v-list-item-title>
+
+                  </v-list-item>
+                </v-list>
+              </div>
 
               <v-list-item-title>Precios</v-list-item-title>
-             
+
             </v-list>
           </v-navigation-drawer>
         </v-col>
@@ -79,18 +91,21 @@ import axios from "axios";
 
 export default {
   name: 'FilterCategory',
-  
+
   data() {
     return {
       categories: [],
       selectedCategories: [],
       brands: [],
-      selectedBrands: []
+      selectedBrands: [],
+      shops: [],
+      selectedShop: []
     };
   },
   created() {
     this.loadCategories();
     this.loadBrands();
+    this.loadShops();
   },
   methods: {
     async loadCategories() {
@@ -102,6 +117,11 @@ export default {
       const url = 'http://localhost:3001/brands';
       const { data } = await axios.get(url);
       this.brands = data;
+    },
+    async loadShops() {
+      const url = 'http://localhost:3001/shops';
+      const { data } = await axios.get(url);
+      this.shops = data;
     }
   }
 }
