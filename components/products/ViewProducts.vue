@@ -1,8 +1,8 @@
 <template>
     <br><br><br>
-    <v-carousel hide-delimiters>
-        <v-carousel-item v-for="deal in deals" :key="deal.id" >
-        <v-img :src="`_nuxt/assets/img/deals/${deal.img}`"></v-img>
+    <v-carousel cycle hide-delimiters height="300" show-arrows="hover" v-if="dealsLoaded==true">
+        <v-carousel-item v-for="deal in deals" :key="deal.id">
+            <v-img :src="`_nuxt/assets/img/deals/${deal.img}`"></v-img>
         </v-carousel-item>
     </v-carousel>
     <v-item-group selected-class="bg-primary">
@@ -12,10 +12,10 @@
             <v-row>
                 <v-col v-for="product in products" :key="product.id" cols="cols" md="3">
                     <v-item v-slot="{ selectedClass, toggle }">
-                        <v-card class="mx-auto pa-6" height="350" width="250" dark @click="openDialog(product)" color="gray"
+                        <v-card class="mx-auto pa-6" height="330" width="230" dark @click="openDialog(product)" color="gray"
                             elevation="18">
 
-                            <v-img :src="`_nuxt/assets/img/products/${product.image}`" height="230" cover>
+                            <v-img :src="`_nuxt/assets/img/products/${product.image}`" height="210" cover>
                             </v-img>
 
 
@@ -88,7 +88,8 @@ export default {
             deals: [],
             dialog: false,
             selectedProduct: {},
-            
+            dealsLoaded: false
+
         };
     },
     created() {
@@ -113,8 +114,14 @@ export default {
         },
         async loadDeals() {
             const url = 'http://localhost:3001/deals';
-            const { data } = await axios.get(url);
-            this.deals = data;
+            try {
+                const { data } = await axios.get(url);
+                this.deals = data;
+                this.dealsLoaded = true;
+
+            } catch (error) {
+                console.error('Error al cargar los datos de ofertas:', error);
+            }
         },
         openDialog(item) {
             this.selectedProduct = item;
