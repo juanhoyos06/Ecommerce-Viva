@@ -7,3 +7,27 @@
     padding: 0;
     margin: 0;
 }
+
+.products_shop {
+    position: absolute;
+    top: 20%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 100vh;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    text-align: center;
+}
+
+.card-title {
+    text-align: center;
+    font-family: "Arial black";
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}

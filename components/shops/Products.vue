@@ -1,13 +1,17 @@
 <template>
-    <br><br><br>
-    <v-carousel cycle hide-delimiters height="300" show-arrows="hover" v-if="dealsLoaded == true">
-        <v-carousel-item v-for="deal in deals" :key="deal.id">
-            <v-img :src="`_nuxt/assets/img/deals/${deal.img}`"></v-img>
-        </v-carousel-item>
-    </v-carousel>
     <v-item-group selected-class="bg-primary">
         <v-container fluid>
-            <h1 class="text-center">Productos</h1>
+            <v-row align="center">
+                <v-col cols="9">
+                    <v-text-field :loading="loading" density="compact" variant="solo" label="Buscar producto"
+                        append-inner-icon="mdi-magnify" single-line hide-details @click:append-inner="onClick"
+                        style="width:50%;" class="mx-auto text-center"></v-text-field>
+                </v-col>
+                <ShopsNewProductDialog />
+
+            </v-row>
+
+            <br>
             <br>
             <v-row>
                 <v-col v-for="product in products" :key="product.id" cols="cols" md="4">
@@ -50,7 +54,8 @@
                             </v-row>
                             <v-row no-gutters class="justify-center">
 
-                                <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold" class="text-center">
+                                <v-card-title
+                                    style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
                                     {{ selectedProduct.name }}
                                 </v-card-title>
                             </v-row>
@@ -66,7 +71,8 @@
 
                             <v-row no-gutters class="justify-center">
 
-                                <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
+                                <v-card-title
+                                    style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
                                     ${{ selectedProduct.price }}
                                 </v-card-title>
                             </v-row>
@@ -84,66 +90,45 @@
         </v-container>
     </v-item-group>
 </template>
-
 <script>
 import axios from "axios";
 
 export default {
-    name: 'ViewProducts', // Puedes poner el nombre que desees para tu componente
-    props: {
-        filter: { type: Object }
-    },
     data() {
         return {
-            products: [],
-            deals: [],
-            dialog: false,
+            loaded: false,
+            loading: false,
             selectedProduct: {},
-            dealsLoaded: false
-
+            products: [],
+            dialog: false,
+            overlay: false,
         };
     },
     created() {
-        this.loadDeals();
         this.loadProducts();
     },
-    watch: {
-        filter(newFilter) {
-            if (newFilter) {
-
-                this.filterByCategory(newFilter)
-            }
-            // console.log(newFilter);
-
-        }
-    },
     methods: {
+        onClick() {
+            this.loading = true
+
+            setTimeout(() => {
+                this.loading = false
+                this.loaded = true
+            }, 2000)
+        },
         async loadProducts() {
             const url = 'http://localhost:3001/products';
             const { data } = await axios.get(url);
             this.products = data;
-        },
-        async loadDeals() {
-            const url = 'http://localhost:3001/deals';
-            try {
-                const { data } = await axios.get(url);
-                this.deals = data;
-                this.dealsLoaded = true;
-
-            } catch (error) {
-                console.error('Error al cargar los datos de ofertas:', error);
-            }
+            console.log(this.products);
         },
         openDialog(item) {
             this.selectedProduct = item;
             this.dialog = true;
         },
-        async filterByCategory(category) {
-            const url = 'http://localhost:3001/products';
-            const { data } = await axios.get(url);
-            this.products = data.filter(product => product.category === category[0])
+        openNewProductDialog() {
+
         }
     }
 }
-
 </script>
