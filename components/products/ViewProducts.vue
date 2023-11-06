@@ -34,7 +34,7 @@
                     </v-toolbar>
                     <v-row no-gutters>
                         <v-col cols="6" class="mt-2">
-                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.image}`" height="390px" cover>
+                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.image}`" height="390px" cover  style="border-radius: 20px">
                             </v-img>
                         </v-col>
                         <v-col cols="6">

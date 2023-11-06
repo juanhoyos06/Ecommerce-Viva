@@ -38,7 +38,8 @@
                     </v-toolbar>
                     <v-row no-gutters>
                         <v-col cols="6" class="mt-2">
-                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.image}`" height="390px" cover>
+                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.image}`" height="390px" cover
+                                style="border-radius: 20px">
                             </v-img>
                         </v-col>
                         <v-col cols="6">
@@ -54,8 +55,7 @@
                             </v-row>
                             <v-row no-gutters class="justify-center">
 
-                                <v-card-title
-                                    style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
+                                <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
                                     {{ selectedProduct.name }}
                                 </v-card-title>
                             </v-row>
@@ -71,17 +71,18 @@
 
                             <v-row no-gutters class="justify-center">
 
-                                <v-card-title
-                                    style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
+                                <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
                                     ${{ selectedProduct.price }}
                                 </v-card-title>
                             </v-row>
-                            <v-row no-gutters class="justify-center">
-                                <v-btn style="background-color: #FFCC00;" variant="text" size="small"
-                                    prepend-icon="mdi-cart-minus" @click="">Agregar</v-btn>
-
-
-
+                            <v-row justify="center" class="mr-2">
+                                <v-col cols="5">
+                                    <v-btn prepend-icon="mdi-delete-empty" color="error"
+                                        @click="deleteProduct()">Eliminar</v-btn>
+                                </v-col>
+                                <v-col cols="5">
+                                    <v-btn prepend-icon="mdi-pencil" color="#FFCC00" @click="editProduct()">Editar</v-btn>
+                                </v-col>
                             </v-row>
                         </v-col>
                     </v-row>
@@ -126,8 +127,11 @@ export default {
             this.selectedProduct = item;
             this.dialog = true;
         },
-        openNewProductDialog() {
+        deleteProduct() {
 
+        },
+        editProduct(){
+            
         }
     }
 }

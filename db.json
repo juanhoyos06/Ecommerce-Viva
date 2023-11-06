@@ -236,16 +236,27 @@
   "deals": [
     {
       "id": 1,
-      "img": "deal_1.png"
+      "img": "deal_1.png",
+      "description": "Mega promo todo con 50% de descuento",
+      "start_date": "01/11/23",
+      "end_date": "01/12/23"
     },
     {
       "id": 2,
-      "img": "deal_2.png"
+      "img": "deal_2.png",
+      "description": "Mega promo todo con 30% de descuento",
+      "start_date": "04/11/23",
+      "end_date": "04/12/23"
     },
+    
     {
       "id": 3,
-      "img": "deal_3.png"
+      "img": "deal_3.png",
+      "description": "Mega promo todo con 70% de descuento",
+      "start_date": "10/11/23",
+      "end_date": "10/12/23"
     }
+   
   ],
   "shops": [
     {
