@@ -43,12 +43,10 @@
                     <p>Este es el contenido de pedidos.</p>
                 </div>
                 <div v-else-if="selectedItem === 'categories'">
-                    <!-- Contenido para 'Starred' -->
-                    <p>Este es el contenido de categorias.</p>
+                    <ShopsCategoires />
                 </div>
                 <div v-else-if="selectedItem === 'brands'">
-                    <!-- Contenido para 'Starred' -->
-                    <p>Este es el contenido de marcas.</p>
+                    <ShopsBrands />
                 </div>
             </v-main>
         </v-layout>

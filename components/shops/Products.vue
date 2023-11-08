@@ -80,9 +80,7 @@
                                     <v-btn prepend-icon="mdi-delete-empty" color="error"
                                         @click="deleteProduct()">Eliminar</v-btn>
                                 </v-col>
-                                <v-col cols="5">
-                                    <v-btn prepend-icon="mdi-pencil" color="#FFCC00" @click="editProduct()">Editar</v-btn>
-                                </v-col>
+                                <ShopsEditProductDialog />
                             </v-row>
                         </v-col>
                     </v-row>

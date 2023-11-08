@@ -3,7 +3,7 @@
         <v-container fluid>
             <v-row align="center">
                 <v-col cols="9">
-                    <v-text-field :loading="loading" density="compact" variant="solo" label="Buscar producto"
+                    <v-text-field :loading="loading" density="compact" variant="solo" label="Buscar promoción"
                         append-inner-icon="mdi-magnify" single-line hide-details @click:append-inner="onClick"
                         style="width:50%;" class="mx-auto text-center"></v-text-field>
                 </v-col>
@@ -70,9 +70,7 @@
                                 <v-col cols="3">
                                     <v-btn prepend-icon="mdi-delete-empty" color="error" @click="deleteDeal()">Eliminar</v-btn>
                                 </v-col>
-                                <v-col cols="3">
-                                    <v-btn prepend-icon="mdi-pencil" color="#FFCC00" @click="editDeal()">Editar</v-btn>
-                                </v-col>
+                                <ShopsEditDealDialog />
                             </v-row>
                             <br>
 

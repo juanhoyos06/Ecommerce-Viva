@@ -1,13 +1,12 @@
 <template>
-    <v-col cols="1">
-
-        <v-btn icon="mdi-plus" color="#FFCC00" class="mr-4" @click="dialog = true"></v-btn>
-
+    <v-col cols="5">
+        <v-btn prepend-icon="mdi-pencil" color="#FFCC00" @click="dialog = true">Editar</v-btn>
     </v-col>
+
     <v-dialog v-model="dialog" width="60%">
         <v-card>
             <v-toolbar color="#FFCC00" :elevation="8">
-                <v-card-title class="card-title">NUEVO PRODUCTO</v-card-title>
+                <v-card-title class="card-title">EDITAR PRODUCTO</v-card-title>
 
             </v-toolbar>
 
