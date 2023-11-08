@@ -1,8 +1,10 @@
 <template>
     <v-col cols="1">
-
-        <v-btn icon="mdi-plus" color="#FFCC00" class="mr-4" @click="dialog = true"></v-btn>
-
+        <v-tooltip text="Agregar categoria">
+            <template v-slot:activator="{ props }">
+                <v-btn icon="mdi-plus" color="#FFCC00" class="mr-4"  v-bind="props" @click="dialog = true"></v-btn>
+            </template>
+        </v-tooltip>
     </v-col>
     <v-dialog v-model="dialog" width="60%">
         <v-card>
@@ -34,7 +36,7 @@
                     </v-row>
                     <br>
 
-                
+
 
                 </form>
 
@@ -56,7 +58,7 @@ export default {
 
     },
     created() {
-        
+
     },
     methods: {
         async saveProducts() {

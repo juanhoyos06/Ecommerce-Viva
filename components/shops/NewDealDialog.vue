@@ -1,6 +1,6 @@
 <template>
     <v-col cols="1">
-        <v-tooltip text="Agregar deal">
+        <v-tooltip text="Agregar promocion">
             <template v-slot:activator="{ props }">
                 <v-btn icon="mdi-plus" color="#FFCC00" class="mr-4" v-bind="props" @click="dialog = true"></v-btn>
             </template>

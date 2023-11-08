@@ -31,12 +31,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in brands" :key="item.id">
-                                <td>{{ item.name }}</td>
-                                <td>{{ item.description }}</td>
+                            <tr v-for="brand in brands" :key="brand.id">
+                                <td>{{ brand.name }}</td>
+                                <td>{{ brand.description }}</td>
                                 <td>
-                                    <v-btn icon="mdi-pencil" variant="text" @click="editTasks(item)"></v-btn>
-                                    <v-btn icon="mdi-delete-off" variant="text" @click="deleteTasks(item)">
+                                    <v-btn icon="mdi-pencil" variant="text" @click="editTasks(brand)"></v-btn>
+                                    <v-btn icon="mdi-delete-off" variant="text" @click="deleteTasks(brand)">
                                     </v-btn>
                                 </td>
                             </tr>
