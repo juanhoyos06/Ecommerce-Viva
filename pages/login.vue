@@ -35,8 +35,8 @@
             :type="showPassword ? 'text' : 'password'"
             label="Contraseña"
             prepend-icon="mdi-key"
-            :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-            @click:append="showPassword = !showPassword"
+            :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="showPassword = !showPassword"
           ></v-text-field>
           <a href="#" class="text-body-2 font-weight-regular"
             >Olvidé mi contraseña</a

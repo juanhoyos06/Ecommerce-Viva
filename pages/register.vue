@@ -39,17 +39,19 @@
           ></v-text-field>
           <v-text-field
             v-model="formData.password"
+            :type="showPassword ? 'text' : 'password'"
             label="Contraseña"
             prepend-icon="mdi-key-variant"
-            type="password"
-            required
+            :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="showPassword = !showPassword"
           ></v-text-field>
           <v-text-field
             v-model="formData.confirmPassword"
+            :type="showPasswordC ? 'text' : 'password'"
             label="Verificar Contraseña"
             prepend-icon="mdi-key-variant"
-            type="password"
-            required
+            :append-inner-icon="showPasswordC ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="showPasswordC = !showPasswordC"
           ></v-text-field>
           <v-checkbox
             v-model="formData.acceptTerms"
@@ -87,6 +89,8 @@ export default {
         confirmVisible: false,
         users: [],
       },
+      showPassword:false,
+      showPasswordC:false,
     };
   },
   methods: {
