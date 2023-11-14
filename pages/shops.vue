@@ -19,7 +19,7 @@
                 </v-list>
                 <template v-slot:append>
                     <div class="pa-2">
-                        <v-list-item prepend-icon="mdi-logout" title="Salir" href="login/"></v-list-item>
+                        <v-list-item prepend-icon="mdi-logout" title="Salir" @click="logout()"></v-list-item>
 
                     </div>
                 </template>
@@ -65,6 +65,10 @@ export default {
     methods: {
         navigateTo(page) {
             this.selectedItem = page; // Actualiza la página actual al hacer clic en una opción del menú
+        },
+        logout(){
+            localStorage.removeItem('token')
+            useRouter().push('/login')
         }
     }
 };

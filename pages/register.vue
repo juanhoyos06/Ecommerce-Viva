@@ -190,6 +190,6 @@ export default {
   },
 };
 definePageMeta({
-  layout: "blank",
+  layout: "ingreso",
 });
 </script>

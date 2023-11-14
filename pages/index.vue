@@ -13,15 +13,15 @@
 
                 <v-list select-strategy="classic">
 
-                  <v-list-item v-for="category in categories" :key="category.id">
+                  <v-list-item v-for="category in categories" :key="category.id_categoria">
                     <template v-slot:prepend="{ isActive }">
 
                       <v-list-item-action start>
-                        <v-checkbox-btn :value="category.name" v-model="selectedCategories"></v-checkbox-btn>
+                        <v-checkbox-btn :value="category.id_categoria" v-model="selectedCategory"></v-checkbox-btn>
                       </v-list-item-action>
                     </template>
                     <v-list-item-title>
-                      {{ category.name }}
+                      {{ category.nombre }}
                     </v-list-item-title>
 
                   </v-list-item>
@@ -32,48 +32,31 @@
               <div style="max-height: 20px00px; overflow-y: auto;">
                 <v-list select-strategy="classic">
 
-                  <v-list-item v-for="brand in brands" :key="brand.id">
+                  <v-list-item v-for="brand in brands" :key="brand.id_marca">
                     <template v-slot:prepend="{ isActive }">
 
                       <v-list-item-action start>
-                        <v-checkbox-btn :value="brand.name" v-model="selectedBrands"></v-checkbox-btn>
+                        <v-checkbox-btn :value="brand.id_marca" v-model="selectedBrand"></v-checkbox-btn>
                       </v-list-item-action>
                     </template>
                     <v-list-item-title>
-                      {{ brand.name }}
+                      {{ brand.nombre }}
                     </v-list-item-title>
 
                   </v-list-item>
                 </v-list>
               </div>
-              <v-list-item-title>Tiendas</v-list-item-title>
-              <div style="max-height: 20px00px; overflow-y: auto;">
-                <v-list select-strategy="classic">
-
-                  <v-list-item v-for="shop in shops" :key="shop.id">
-                    <template v-slot:prepend="{ isActive }">
-
-                      <v-list-item-action start>
-                        <v-checkbox-btn :value="shop.name" v-model="selectedShop"></v-checkbox-btn>
-                      </v-list-item-action>
-                    </template>
-                    <v-list-item-title>
-                      {{ shop.name }}
-                    </v-list-item-title>
-
-                  </v-list-item>
-                </v-list>
-              </div>
-
-              <v-list-item-title>Precios</v-list-item-title>
+              
 
             </v-list>
           </v-navigation-drawer>
         </v-col>
         <v-col cols="9" class="pa-0">
-          <v-main class="pa-0 overflow-y-auto" style="max-height: 100vh">
-            <ProductsViewProducts v-if="selectedCategories.length > 0" :filter="selectedCategories" />
-            <ProductsViewProducts v-else />
+          <v-main class="pa-0 overflow-y-auto" style="height: 100vh">
+            <ProductsViewProducts v-if="selectedCategory && !selectedBrand" :filterC="selectedCategory" />
+            <ProductsViewProducts v-if="!selectedCategory && selectedBrand" :filterB="selectedBrand" />
+            <ProductsViewProducts v-if="(!selectedCategory && !selectedBrand) ||(selectedCategory && selectedBrand) " />
+            
 
           </v-main>
         </v-col>
@@ -83,45 +66,46 @@
 </template>
 <script>
 
-definePageMeta({
-  layout: "default",
-});
-
 import axios from "axios";
+import config from '../config/default.json';
+
+
+
 
 export default {
-  name: 'FilterCategory',
+  nombre: 'Filters',
 
   data() {
     return {
       categories: [],
-      selectedCategories: [],
+      selectedCategory: null,
       brands: [],
-      selectedBrands: [],
-      shops: [],
-      selectedShop: []
+      selectedBrand: null
+      
     };
   },
   created() {
     this.loadCategories();
     this.loadBrands();
-    this.loadShops();
+    
   },
   methods: {
+    getHeaders() {
+      const token = 'asdad';
+      return { headers: { 'Authorization': `Bearer ${token}` } }
+
+    },
     async loadCategories() {
-      const url = 'http://localhost:3001/categories';
-      const { data } = await axios.get(url);
-      this.categories = data;
+      const url = `${config.api_host}/categories`;
+      const headers = this.getHeaders();
+      const { data } = await axios.get(url, {headers});
+      this.categories = data.info;
     },
     async loadBrands() {
-      const url = 'http://localhost:3001/brands';
-      const { data } = await axios.get(url);
-      this.brands = data;
-    },
-    async loadShops() {
-      const url = 'http://localhost:3001/shops';
-      const { data } = await axios.get(url);
-      this.shops = data;
+      const url =  `${config.api_host}/brands`;
+      const headers = this.getHeaders();
+      const { data } = await axios.get(url, {headers});
+      this.brands = data.info;
     }
   }
 }

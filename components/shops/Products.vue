@@ -14,17 +14,17 @@
             <br>
             <br>
             <v-row>
-                <v-col v-for="product in products" :key="product.id" cols="cols" md="4">
+                <v-col v-for="product in products" :key="product.id_producto" cols="cols" md="4">
                     <v-item v-slot="{ selectedClass, toggle }">
                         <v-card class="mx-auto pa-6" height="330" width="230" dark @click="openDialog(product)" color="gray"
                             elevation="18">
 
-                            <v-img :src="`_nuxt/assets/img/products/${product.image}`" height="210" cover>
+                            <v-img :src="`_nuxt/assets/img/products/${product.imagen}`" height="210" cover>
                             </v-img>
 
 
-                            <v-card-title class="text-center">{{ product.name }}</v-card-title>
-                            <v-card-title class="text-center" style="font-weight: bold;">{{ '$' + product.price
+                            <v-card-title class="text-center">{{ product.nombre }}</v-card-title>
+                            <v-card-title class="text-center" style="font-weight: bold;">{{ product.precio
                             }}</v-card-title>
                         </v-card>
                     </v-item>
@@ -38,7 +38,7 @@
                     </v-toolbar>
                     <v-row no-gutters>
                         <v-col cols="6" class="mt-2">
-                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.image}`" height="390px" cover
+                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.imagen}`" height="390px" cover
                                 style="border-radius: 20px">
                             </v-img>
                         </v-col>
@@ -46,22 +46,22 @@
                             <v-row><br><br><br><br><br><br></v-row>
                             <v-row no-gutters class="justify-center">
                                 <v-card-subtitle>
-                                    Marca: {{ selectedProduct.brand || 'Sin Marca' }}
+                                    Marca: {{ selectedProduct.marca || 'Sin Marca' }}
                                 </v-card-subtitle>
 
                                 <v-card-subtitle>
-                                    Categoria: {{ selectedProduct.category || 'Sin Categoria' }}
+                                    Categoria: {{ selectedProduct.categoria || 'Sin Categoria' }}
                                 </v-card-subtitle>
                             </v-row>
                             <v-row no-gutters class="justify-center">
 
                                 <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
-                                    {{ selectedProduct.name }}
+                                    {{ selectedProduct.nombre }}
                                 </v-card-title>
                             </v-row>
                             <v-row no-gutters class="justify-center">
                                 <v-card-subtitle>
-                                    Cantidad disponible: {{ selectedProduct.cant || '00' }}
+                                    Cantidad disponible: {{ selectedProduct.cantidad || '00' }}
                                 </v-card-subtitle>
 
                                 <v-card-subtitle>
@@ -72,7 +72,7 @@
                             <v-row no-gutters class="justify-center">
 
                                 <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
-                                    ${{ selectedProduct.price }}
+                                    {{ selectedProduct.precio }}
                                 </v-card-title>
                             </v-row>
                             <v-row justify="center" class="mr-2">
@@ -91,6 +91,8 @@
 </template>
 <script>
 import axios from "axios";
+import config from '../../config/default.json';
+
 
 export default {
     data() {
@@ -115,11 +117,19 @@ export default {
                 this.loaded = true
             }, 2000)
         },
+        getHeaders() {
+            const token = 'asdad';
+            return { headers: { 'Authorization': `Bearer ${token}` } }
+
+        },
+
         async loadProducts() {
-            const url = 'http://localhost:3001/products';
-            const { data } = await axios.get(url);
-            this.products = data;
-            console.log(this.products);
+
+            const url = `${config.api_host}/products`;
+            const headers = this.getHeaders();
+            const { data } = await axios.get(url, { headers });
+            this.products = data.info;
+
         },
         openDialog(item) {
             this.selectedProduct = item;
@@ -128,8 +138,8 @@ export default {
         deleteProduct() {
 
         },
-        editProduct(){
-            
+        editProduct() {
+
         }
     }
 }

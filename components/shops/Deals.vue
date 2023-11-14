@@ -14,16 +14,16 @@
             <br>
             <br>
             <v-row>
-                <v-col v-for="deal in deals" :key="deal.id" cols="cols" md="4">
+                <v-col v-for="deal in deals" :key="deal.id_promocion" cols="cols" md="4">
                     <v-item v-slot="{ selectedClass, toggle }">
                         <v-card class="mx-auto pa-6" height="330" width="230" dark @click="openDialog(deal)" color="gray"
                             elevation="18">
 
-                            <v-img :src="`_nuxt/assets/img/deals/${deal.img}`" height="210" cover>
+                            <v-img :src="`_nuxt/assets/img/deals/${deal.imagen}`" height="210" cover>
                             </v-img>
 
 
-                            <v-card-title class="text-center" style="font-weight: bold;">{{ deal.description
+                            <v-card-title class="text-center" style="font-weight: bold;">{{ deal.descripcion
                             }}</v-card-title>
 
                         </v-card>
@@ -40,7 +40,7 @@
                     </v-toolbar>
                     <v-row no-gutters class="justify-center align-center">
                         <v-col cols="12" class="mt-2 mr-2">
-                            <v-img :src="`_nuxt/assets/img/deals/${selectedDeal.img}`" height="390px" class="ml-2"
+                            <v-img :src="`_nuxt/assets/img/deals/${selectedDeal.imagen}`" height="390px" class="ml-2"
                                 style="border-radius: 20px">
                             </v-img>
 
@@ -49,26 +49,27 @@
                             <v-row no-gutters class="justify-center align-center">
 
                                 <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
-                                    {{ selectedDeal.description }}
+                                    {{ selectedDeal.descripcion }}
                                 </v-card-title>
                             </v-row>
                             <v-row no-gutters class="justify-center">
                                 <v-card-subtitle>
-                                    FECHA INICIO: {{ selectedDeal.start_date || '00' }}
+                                    FECHA INICIO: {{ selectedDeal.fecha_inicio.slice(0, 10) || '00' }}
                                 </v-card-subtitle>
 
                                 <v-card-subtitle>
-                                    FECHA FINALIZACION: {{ selectedDeal.end_date || 'S M L ' }}
+                                    FECHA FINALIZACION: {{ selectedDeal.fecha_fin.slice(0, 10) || 'S M L ' }}
                                 </v-card-subtitle>
                                 <v-card-subtitle>
-                                    PORCENTAJE: {{ selectedDeal.porcen || '00' }}
+                                    PORCENTAJE: {{ selectedDeal.porcentaje || '00' }} %
                                 </v-card-subtitle>
                             </v-row>
                             <br>
 
                             <v-row justify="end">
                                 <v-col cols="3">
-                                    <v-btn prepend-icon="mdi-delete-empty" color="error" @click="deleteDeal()">Eliminar</v-btn>
+                                    <v-btn prepend-icon="mdi-delete-empty" color="error"
+                                        @click="deleteDeal()">Eliminar</v-btn>
                                 </v-col>
                                 <ShopsEditDealDialog />
                             </v-row>
@@ -85,6 +86,8 @@
 </template>
 <script>
 import axios from "axios";
+import config from '../../config/default.json';
+
 
 export default {
     data() {
@@ -109,20 +112,27 @@ export default {
                 this.loaded = true
             }, 2000)
         },
+        getHeaders() {
+            const token = 'asdad';
+            return { headers: { 'Authorization': `Bearer ${token}` } }
+
+        },
         async loadDeals() {
-            const url = 'http://localhost:3001/deals';
-            const { data } = await axios.get(url);
-            this.deals = data;
-            // console.log(this.deals);
+
+            const url = `${config.api_host}/deals`;
+            const headers = this.getHeaders();
+            const { data } = await axios.get(url, { headers });
+            this.deals = data.info;
+
         },
         openDialog(item) {
             this.selectedDeal = item;
             this.dialog = true;
         },
-        deleteDeal(item){
+        deleteDeal(item) {
 
         },
-        editDeal(item){
+        editDeal(item) {
 
         }
 

@@ -55,52 +55,102 @@
   </div>
 </template>
 
-<script>
-import axios from "axios";
+<script setup>
 import Swal from "sweetalert2";
-import { currentUser } from "@/user.js";
+import axios from "axios";
+import config from '../config/default.json';
 
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-      showPassword: false,
-      users: [],
-    };
+
+definePageMeta({layout: "blank",});
+
+const email=  ref('jphoyos0610@gmail.com')
+const password=  ref('user123')
+const showPassword=  ref(false)
+const emailRules = ref([
+  value => {
+    if (value) return true
+    return 'El campo es obligatorio.'
   },
-  methods: {
-    async getUsers() {
-      try {
-        const response = await axios.get("http://localhost:3001/users");
-        this.users = response.data;
-      } catch (error) {
-        console.error("Error al obtener usuarios:", error);
+  value => {
+    if (/[^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(value)) return true
+    return 'Correo no valido.'
+  }
+])
+const login = async () => {
+  try {
+    const url = `${config.api_host}/login`
+    const {data} = await axios.post(url, {email: email.value, password: password.value})
+    if (data?.ok){
+      //Redireccionar al usuario, guardar el token
+      console.log(data?.info);
+      const id_rol = data?.info?.id_rol
+      const token = data?.info?.token
+      localStorage.setItem('token', token)
+      if (id_rol === 3) {
+        useRouter().push("/");
+        
+      } else if (id_rol === 1){
+        useRouter().push("/shops");
+        
       }
-    },
-    async login() {
-      await this.getUsers();
+    }
+    else{
+      Swal.fire({
+        title: 'Error!',
+        text: data?.message,
+        icon: 'error'
+      })
+    }
+  } catch (error) {
+    console.error(error);
+    Swal.fire({
+        title: 'Error!',
+        text: 'Ha ocurrido un error al conectarse.',
+        icon: 'error'
+      })
+  }
+}
+// export default {
+//   data() {
+//     return {
+//       email: "",
+//       password: "",
+//       showPassword: false,
+//       users: [],
+//     };
+//   },
+//   methods: {
+//     async getUsers() {
+//       try {
+//         const response = await axios.get("http://localhost:3001/users");
+//         this.users = response.data;
+//       } catch (error) {
+//         console.error("Error al obtener usuarios:", error);
+//       }
+//     },
+//     async login() {
+//       await this.getUsers();
 
-      const foundUser = this.users.find(
-        (user) => user.email === this.email && user.password === this.password
-      );
+//       const foundUser = this.users.find(
+//         (user) => user.email === this.email && user.password === this.password
+//       );
 
-      if (foundUser) {
-        currentUser.setUser(foundUser);
+//       if (foundUser) {
+//         currentUser.setUser(foundUser);
 
-        this.$router.push("/");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Credenciales incorrectas",
-          text: "Inicio de sesión fallido. Verifica tu correo y contraseña.",
-        });
-      }
-    },
-  },
-};
+//         this.$router.push("/");
+//       } else {
+//         Swal.fire({
+//           icon: "error",
+//           title: "Credenciales incorrectas",
+//           text: "Inicio de sesión fallido. Verifica tu correo y contraseña.",
+//         });
+//       }
+//     },
+//   },
+// };
 definePageMeta({
-  layout: "blank",
+  layout: "ingreso",
 });
 </script>
 
