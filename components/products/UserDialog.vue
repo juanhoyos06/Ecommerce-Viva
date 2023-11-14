@@ -5,11 +5,11 @@
       <v-card-text>
         <div>
           <strong>Nombre:</strong>
-          {{ currentUser.user ? currentUser.user.name : "" }}
+          {{ currentUser.user ? currentUser.user.nombre : "" }}
         </div>
         <div>
           <strong>Correo:</strong>
-          {{ currentUser.user ? currentUser.user.email : "" }}
+          {{ currentUser.user ? currentUser.user.correo : "" }}
         </div>
       </v-card-text>
       <v-card-actions>
@@ -22,6 +22,7 @@
 
 <script>
 import axios from "axios";
+import config from '../../config/default.json';
 import { currentUser } from "@/user.js";
 
 export default {
@@ -33,8 +34,10 @@ export default {
   methods: {
     async fetchUser() {
       try {
-        const response = await axios.get("http://localhost:3001/users");
-        //currentUser.setUser(response.data[0]);
+        const url = `${config.api_host}/user`
+        const response = await axios.get(url, currentUser.id_usuario);
+        console.log(response.data);
+        
       } catch (error) {
         console.error("Error fetching user data", error);
       }

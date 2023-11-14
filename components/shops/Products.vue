@@ -63,7 +63,7 @@
                                     Cantidad disponible: {{ selectedProduct.cantidad || '00' }}
                                 </v-card-subtitle>
 
-                                
+
                             </v-row>
 
                             <v-row no-gutters class="justify-center">
@@ -75,7 +75,7 @@
                             <v-row justify="center" class="mr-2">
                                 <v-col cols="5">
                                     <v-btn prepend-icon="mdi-delete-empty" color="error"
-                                        @click="deleteProduct()">Eliminar</v-btn>
+                                        @click="deleteProduct(selectedProduct.id_producto)">Eliminar</v-btn>
                                 </v-col>
                                 <ShopsEditProductDialog :selectedProduct="selectedProduct" />
                             </v-row>
@@ -89,6 +89,7 @@
 <script>
 import axios from "axios";
 import config from '../../config/default.json';
+import Swal from "sweetalert2";
 
 
 export default {
@@ -138,7 +139,29 @@ export default {
             this.selectedProduct = item;
             this.dialog = true;
         },
-        deleteProduct() {
+        async deleteProduct(id) {
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Una vez eliminado no podra reversar la operación",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const url = `${config.api_host}/products/${id}`;
+                    const { data } = await axios.delete(url);
+                    this.dialog = false;
+                    this.loadProducts();
+                    Swal.fire(
+                        'Eliminado!',
+                        'El producto se eliminó correctamente',
+                        'success'
+                    )
+                }
+            })
+
 
         },
         editProduct() {

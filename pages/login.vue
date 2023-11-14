@@ -57,6 +57,7 @@
 
 <script setup>
 import Swal from "sweetalert2";
+import { currentUser } from "@/user.js";
 import axios from "axios";
 import config from '../config/default.json';
 
@@ -81,10 +82,12 @@ const login = async () => {
     const url = `${config.api_host}/login`
     const {data} = await axios.post(url, {email: email.value, password: password.value})
     if (data?.ok){
-      //Redireccionar al usuario, guardar el token
+      
+      currentUser.setUser(data?.info)
       
       const id_rol = data?.info?.id_rol
       const token = data?.info?.token
+
       localStorage.setItem('token', token)
       if (id_rol === 3) {
         useRouter().push("/");

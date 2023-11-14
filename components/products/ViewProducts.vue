@@ -7,7 +7,15 @@
     </v-carousel>
     <v-item-group selected-class="bg-primary">
         <v-container fluid>
-            <h1 class="text-center">Productos</h1>
+            <br><br>
+            <v-row align="center">
+                <v-col cols="12">
+                    <v-text-field :loading="loading" density="compact" variant="solo" label="Buscar producto"
+                        append-inner-icon="mdi-magnify" single-line hide-details @click:append-inner="onClick"
+                        style="width:50%;" class="mx-auto text-center"></v-text-field>
+                </v-col>
+
+            </v-row>
             <br>
             <v-row>
                 <v-col v-for="product in products" :key="product.id_producto" cols="cols" md="4">
@@ -29,13 +37,12 @@
             <v-dialog v-model="dialog" max-width="700px" max-height="auto">
                 <v-card style="border-radius: 20px">
                     <v-toolbar color="#FFCC00" :elevation="8">
-                        <v-card-title class="card-title"></v-card-title>
+                        <v-card-title class="card-title">{{ selectedProduct.nombre }}</v-card-title>
 
                     </v-toolbar>
                     <v-row no-gutters>
                         <v-col cols="6" class="mt-2">
-                            <v-img :src="`${selectedProduct.imagen}`" height="390px" cover
-                                style="border-radius: 20px">
+                            <v-img :src="`${selectedProduct.imagen}`" height="390px" cover style="border-radius: 20px">
                             </v-img>
                         </v-col>
                         <v-col cols="6">
@@ -51,17 +58,14 @@
                             </v-row>
                             <v-row no-gutters class="justify-center">
 
-                                <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold"
-                                    class="text-center">
-                                    {{ selectedProduct.nombre }}
-                                </v-card-title>
+                                
                             </v-row>
                             <v-row no-gutters class="justify-center">
                                 <v-card-subtitle>
                                     Cantidad disponible: {{ selectedProduct.cantidad || '00' }}
                                 </v-card-subtitle>
 
-                                
+
                             </v-row>
 
                             <v-row no-gutters class="justify-center">
@@ -94,10 +98,12 @@ export default {
     name: 'ViewProducts', // Puedes poner el nombre que desees para tu componente
     props: {
         filterC: { type: Number },
-        filterB: {type: Number}
+        filterB: { type: Number }
     },
     data() {
         return {
+            loaded: false,
+            loading: false,
             products: [],
             deals: [],
             dialog: false,
@@ -125,6 +131,14 @@ export default {
         }
     },
     methods: {
+        onClick() {
+            this.loading = true
+
+            setTimeout(() => {
+                this.loading = false
+                this.loaded = true
+            }, 2000)
+        },
         getHeaders() {
             const token = localStorage.getItem('item');
             return { headers: { 'Authorization': `Bearer ${token}` } }

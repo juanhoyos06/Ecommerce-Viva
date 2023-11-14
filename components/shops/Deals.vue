@@ -69,7 +69,7 @@
                             <v-row justify="end">
                                 <v-col cols="3">
                                     <v-btn prepend-icon="mdi-delete-empty" color="error"
-                                        @click="deleteDeal()">Eliminar</v-btn>
+                                        @click="deleteDeal(selectedDeal.id_promocion)">Eliminar</v-btn>
                                 </v-col>
                                 <ShopsEditDealDialog />
                             </v-row>
@@ -87,6 +87,7 @@
 <script>
 import axios from "axios";
 import config from '../../config/default.json';
+import Swal from "sweetalert2";
 
 
 export default {
@@ -123,13 +124,34 @@ export default {
             const headers = this.getHeaders();
             const { data } = await axios.get(url, { headers });
             this.deals = data.info;
-            console.log(this.deals);
         },
         openDialog(item) {
             this.selectedDeal = item;
             this.dialog = true;
         },
-        deleteDeal(item) {
+        deleteDeal(id) {
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Una vez eliminado no podra reversar la operación",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const url = `${config.api_host}/deals/${id}`;
+                    const { data } = await axios.delete(url);
+                    this.dialog = false;
+                    this.loadDeals();
+                    Swal.fire(
+                        'Eliminado!',
+                        'La promocion se eliminó correctamente',
+                        'success'
+                    )
+                }
+            })
+
 
         },
         editDeal(item) {
