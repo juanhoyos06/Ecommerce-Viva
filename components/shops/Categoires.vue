@@ -31,9 +31,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in categories" :key="item.id">
-                                <td>{{ item.name }}</td>
-                                <td>{{ item.description }}</td>
+                            <tr v-for="item in categories" :key="item.id_categoria">
+                                <td>{{ item.nombre }}</td>
+                                <td>{{ item.count }}</td>
                                 <td>
                                     <v-btn icon="mdi-pencil" variant="text" @click="editTasks(item)"></v-btn>
                                     <v-btn icon="mdi-delete-off" variant="text" @click="deleteTasks(item)">
@@ -49,6 +49,8 @@
 </template>
 <script>
 import axios from "axios";
+import config from '../../config/default.json';
+
 
 export default {
     data() {
@@ -71,10 +73,17 @@ export default {
                 this.loaded = true
             }, 2000)
         },
+        getHeaders() {
+            const token = localStorage.getItem('item');
+            return { headers: { 'Authorization': `Bearer ${token}` } }
+
+        },
         async loadCategories() {
-            const url = 'http://localhost:3001/categories';
-            const { data } = await axios.get(url);
-            this.categories = data;
+            const url = `${config.api_host}/categories/shops`;
+            const headers = this.getHeaders();
+            const { data } = await axios.get(url, { headers });
+            this.categories = data.info;
+
         }
     }
 }

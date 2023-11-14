@@ -118,7 +118,7 @@ export default {
             }, 2000)
         },
         getHeaders() {
-            const token = 'asdad';
+            const token = localStorage.getItem('item');
             return { headers: { 'Authorization': `Bearer ${token}` } }
 
         },

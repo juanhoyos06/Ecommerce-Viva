@@ -31,9 +31,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="brand in brands" :key="brand.id">
-                                <td>{{ brand.name }}</td>
-                                <td>{{ brand.description }}</td>
+                            <tr v-for="brand in brands" :key="brand.id_marca">
+                                <td>{{ brand.nombre }}</td>
+                                <td>{{ brand.count }}</td>
                                 <td>
                                     <v-btn icon="mdi-pencil" variant="text" @click="editTasks(brand)"></v-btn>
                                     <v-btn icon="mdi-delete-off" variant="text" @click="deleteTasks(brand)">
@@ -49,6 +49,8 @@
 </template>
 <script>
 import axios from "axios";
+import config from '../../config/default.json';
+
 
 export default {
     data() {
@@ -71,10 +73,17 @@ export default {
                 this.loaded = true
             }, 2000)
         },
+        getHeaders() {
+            const token = localStorage.getItem('item');
+            return { headers: { 'Authorization': `Bearer ${token}` } }
+
+        },
         async loadBrands() {
-            const url = 'http://localhost:3001/brands';
-            const { data } = await axios.get(url);
-            this.brands = data;
+            const url = `${config.api_host}/brands/shops`;
+            const headers = this.getHeaders();
+            const { data } = await axios.get(url, { headers });
+            this.brands = data.info;
+
         }
     }
 }

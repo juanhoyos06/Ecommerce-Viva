@@ -2,8 +2,8 @@
     <v-col cols="1">
         <v-tooltip text="Agregar producto">
             <template v-slot:activator="{ props }">
-                <v-btn icon="mdi-plus" color="#FFCC00" class="mr-4"  v-bind="props" @click="dialog = true"></v-btn>
-            </template> 
+                <v-btn icon="mdi-plus" color="#FFCC00" class="mr-4" v-bind="props" @click="dialog = true"></v-btn>
+            </template>
         </v-tooltip>
 
     </v-col>
@@ -19,30 +19,30 @@
                     <v-row>
                         <v-col cols="6">
 
-                            <v-text-field label="Nombre" v-model="product.name" required variant="underlined"
+                            <v-text-field label="Nombre" v-model="product.nombre" required variant="underlined"
                                 placeholder="Ingrese el nombre del producto" style="width:100%;" />
 
-                            <v-combobox label="Categoria" :items="categories" v-model="product.category"
+                            <v-combobox label="Categoria" :items="categories" v-model="product.id_categoria"
                                 variant="underlined" style="width:100%;"></v-combobox>
 
-                            <v-combobox label="Marca" :items="brands" v-model="product.brand" variant="underlined"
+                            <v-combobox label="Marca" :items="brands" v-model="product.id_marca" variant="underlined"
                                 style="width:100%;"></v-combobox>
 
-                            <v-text-field label="Precio" v-model="product.price" required variant="underlined"
+                            <v-text-field label="Precio" v-model="product.precio" required variant="underlined"
                                 placeholder="Ingrese el precio del producto" style="width:100%;" type="number" />
 
-                            <v-text-field label="Cantidad" v-model="product.cantida" required variant="underlined"
+                            <v-text-field label="Cantidad" v-model="product.cantidad" required variant="underlined"
                                 placeholder="Ingrese la cantidad del producto" style="width:100%;" type="number" />
 
-                            <v-file-input label="Imagen" variant="underlined" v-model="product.img" style="width:100%;"
-                                accept=".jpg, .jpeg, .png"></v-file-input>
+
 
                         </v-col>
 
-                        <v-col cols="6" class="d-flex justify-center align-center">
-                            <v-card :elevation="8" height="330" width="230" dark>
-                                <v-img></v-img>
-                            </v-card>
+                        <v-col cols="6" >
+                            <v-text-field label="Ubicacion bodega" v-model="product.ubicacion_bodega" required variant="underlined"
+                                placeholder="Ingrese el nombre del producto" style="width:100%;" />
+                            <v-file-input label="Imagen" variant="underlined" v-model="product.imagen" style="width:100%;"
+                                accept=".jpg, .jpeg, .png" />
 
                         </v-col>
 
@@ -68,6 +68,8 @@
 </template>
 <script>
 import axios from "axios";
+import config from '../../config/default.json';
+
 
 export default {
     data() {
@@ -90,20 +92,25 @@ export default {
             const result = await axios.post("http://localhost:3001/product", product.value)
             console.log(result);
         },
-        async loadCategories() {
-            const url = 'http://localhost:3001/categories';
-            const { data } = await axios.get(url);
-            data.forEach(category => {
-                this.categories.push(category.name);
-            });
+        getHeaders() {
+            const token = localStorage.getItem('item');
+            return { headers: { 'Authorization': `Bearer ${token}` } }
 
         },
         async loadBrands() {
-            const url = 'http://localhost:3001/brands';
-            const { data } = await axios.get(url);
-            data.forEach(brand => {
-                this.brands.push(brand.name);
-            });
+            const url = `${config.api_host}/brands`;
+            const headers = this.getHeaders();
+            const { data } = await axios.get(url, { headers });
+            this.brands = data.info;
+            console.log(this.brands);
+
+        },
+        async loadCategories() {
+            const url = `${config.api_host}/categories`;
+            const headers = this.getHeaders();
+            const { data } = await axios.get(url, { headers });
+            this.categories = data.info;
+
         }
     }
 }
