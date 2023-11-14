@@ -94,8 +94,8 @@ export default {
     created() {
         this.loadCategories();
         this.loadBrands();
-        console.log('id seleccion'+ this.$props.selectedProduct);
     },
+    
     methods: {
         getHeaders() {
             const token = localStorage.getItem('item');
@@ -148,30 +148,35 @@ export default {
             }
         },
         async openEditDialog() {
-            const data = await this.getProductDetails(this.$props.selectedProduct);
-            console.log('data '+ data);
-            console.log('info de data ' + productDetails);
+            const productId = this.$props.selectedProduct;
+            const url = `${config.api_host}/products/info/${productId}`;
+            const headers = this.getHeaders();
+            const response = await axios.get(url, { headers });
+            console.log(response.data.info[0]);
+            const data = response.data.info[0];
+            console.log('nombre: '+ data. precio.slice(1, ));
+    
+            this.nombre = data.nombre;
+            this.categoria = data.categoria;
+            this.marca = data.marca;
+            this.precio = data.precio.slice(1,);
+            this.cantidad = data.cantidad;
+            this.ubicacion_bodega = data.ubicacion_bodega;
 
-
-            this.product = {
-                id: this.productId,
-                id_category: productDetails.id_categoria,
-                id_brand: productDetails.id_marca,
-                name: productDetails.nombre,
-                price: productDetails.precio,
-                cant: productDetails.cantidad,
-                address: productDetails.ubicacion_bodega,
-            };
+            // this.product = {
+            //     id: this.productId,
+            //     id_category: data.id_categoria,
+            //     id_brand: data.id_marca,
+            //     name: data.nombre,
+            //     price: data.precio,
+            //     cant: data.cantidad,
+            //     address: data.ubicacion_bodega,
+            // };
 
             this.dialog = true;
         },
 
         async getProductDetails(productId) {
-            console.log('id:' + productId);
-            const url = `${config.api_host}/products/info/${productId}`;
-            const headers = this.getHeaders();
-            const {data}  = await axios.get(url, { headers });
-            return data.info;
         },
 
         async loadBrands() {
