@@ -1,8 +1,8 @@
 <template>
     <br><br><br>
     <v-carousel cycle hide-delimiters height="300" show-arrows="hover" v-if="dealsLoaded == true">
-        <v-carousel-item v-for="deal in deals" :key="deal.id">
-            <v-img :src="`_nuxt/assets/img/deals/${deal.img}`"></v-img>
+        <v-carousel-item v-for="deal in deals" :key="deal.id_promocion">
+            <v-img :src="`${deal.imagen}`"></v-img>
         </v-carousel-item>
     </v-carousel>
     <v-item-group selected-class="bg-primary">
@@ -145,6 +145,7 @@ export default {
                 const headers = this.getHeaders();
                 const { data } = await axios.get(url, { headers });
                 this.dealsLoaded = true;
+                this.deals = data.info;
 
             } catch (error) {
                 console.error('Error al cargar los datos de ofertas:', error);

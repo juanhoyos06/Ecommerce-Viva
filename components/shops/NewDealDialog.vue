@@ -83,29 +83,29 @@ export default {
 
     },
     created() {
-        this.loadCategories();
-        this.loadBrands();
+        // this.loadCategories();
+        // this.loadBrands();
     },
     methods: {
         async saveDeal() {
             const result = await axios.post("http://localhost:3001/deal", deal.value)
             console.log(result);
         },
-        async loadCategories() {
-            const url = 'http://localhost:3001/categories';
-            const { data } = await axios.get(url);
-            data.forEach(category => {
-                this.categories.push(category.name);
-            });
+        // async loadCategories() {
+        //     const url = 'http://localhost:3001/categories';
+        //     const { data } = await axios.get(url);
+        //     data.forEach(category => {
+        //         this.categories.push(category.name);
+        //     });
 
-        },
-        async loadBrands() {
-            const url = 'http://localhost:3001/brands';
-            const { data } = await axios.get(url);
-            data.forEach(brand => {
-                this.brands.push(brand.name);
-            });
-        }
+        // },
+        // async loadBrands() {
+        //     const url = 'http://localhost:3001/brands';
+        //     const { data } = await axios.get(url);
+        //     data.forEach(brand => {
+        //         this.brands.push(brand.name);
+        //     });
+        // }
     }
 }
 

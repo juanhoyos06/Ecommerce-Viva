@@ -19,7 +19,7 @@
                         <v-card class="mx-auto pa-6" height="330" width="230" dark @click="openDialog(deal)" color="gray"
                             elevation="18">
 
-                            <v-img :src="`_nuxt/assets/img/deals/${deal.imagen}`" height="210" cover>
+                            <v-img :src="`${deal.imagen}`" height="210" cover>
                             </v-img>
 
 
@@ -40,7 +40,7 @@
                     </v-toolbar>
                     <v-row no-gutters class="justify-center align-center">
                         <v-col cols="12" class="mt-2 mr-2">
-                            <v-img :src="`_nuxt/assets/img/deals/${selectedDeal.imagen}`" height="390px" class="ml-2"
+                            <v-img :src="`${selectedDeal.imagen}`" height="390px" class="ml-2"
                                 style="border-radius: 20px">
                             </v-img>
 
@@ -123,7 +123,7 @@ export default {
             const headers = this.getHeaders();
             const { data } = await axios.get(url, { headers });
             this.deals = data.info;
-
+            console.log(this.deals);
         },
         openDialog(item) {
             this.selectedDeal = item;
