@@ -19,7 +19,7 @@
                         <v-card class="mx-auto pa-6" height="330" width="230" dark @click="openDialog(product)" color="gray"
                             elevation="18">
 
-                            <v-img :src="`_nuxt/assets/img/products/${product.imagen}`" height="210" cover>
+                            <v-img :src="`${product.imagen}`" height="210" cover>
                             </v-img>
 
 
@@ -38,7 +38,7 @@
                     </v-toolbar>
                     <v-row no-gutters>
                         <v-col cols="6" class="mt-2">
-                            <v-img :src="`_nuxt/assets/img/products/${selectedProduct.imagen}`" height="390px" cover
+                            <v-img :src="`${selectedProduct.imagen}`" height="390px" cover
                                 style="border-radius: 20px">
                             </v-img>
                         </v-col>

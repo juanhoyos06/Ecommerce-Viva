@@ -82,7 +82,7 @@ const login = async () => {
     const {data} = await axios.post(url, {email: email.value, password: password.value})
     if (data?.ok){
       //Redireccionar al usuario, guardar el token
-      console.log(data?.info);
+      
       const id_rol = data?.info?.id_rol
       const token = data?.info?.token
       localStorage.setItem('token', token)

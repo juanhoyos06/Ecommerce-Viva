@@ -71,7 +71,8 @@ export default {
             dialog: false,
             product: {},
             categories: [],
-            brands: []
+            brands: [],
+
 
 
         };
