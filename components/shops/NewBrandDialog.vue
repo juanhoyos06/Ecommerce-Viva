@@ -2,7 +2,7 @@
     <v-col cols="1">
         <v-tooltip text="Agregar marca">
             <template v-slot:activator="{ props }">
-                <v-btn icon="mdi-plus" color="#FFCC00" class="mr-4"  v-bind="props" @click="dialog = true"></v-btn>
+                <v-btn icon="mdi-plus" color="#FFCC00" class="mr-4" v-bind="props" @click="dialog = true"></v-btn>
             </template>
         </v-tooltip>
     </v-col>
@@ -14,7 +14,7 @@
             </v-toolbar>
 
             <v-card-text>
-                <form action="javascript:void(0)" @submit="saveProducts">
+                <form action="javascript:void(0)" @submit="saveBrand()">
                     <v-row>
                         <v-col cols="6">
 
@@ -47,6 +47,8 @@
 </template>
 <script>
 import axios from "axios";
+import config from '../../config/default.json';
+import Swal from "sweetalert2";
 
 export default {
     data() {
@@ -61,8 +63,35 @@ export default {
 
     },
     methods: {
-        async saveProducts() {
-            const result = await axios.post("http://localhost:3001/brands", brand.value)
+        getHeaders() {
+            const token = localStorage.getItem('item');
+            return { headers: { 'Authorization': `Bearer ${token}` } }
+
+        },
+        async saveBrand() {
+            try {
+                const url = `${config.api_host}/brands`
+                const headers = this.getHeaders()
+
+                await axios.post(url, this.brand, { headers })
+                Swal.fire(
+                    {
+                        icon: 'success',
+                        title: 'Registro exitoso:'
+                    }
+                ).then(() => {
+                    // Después de cerrar el diálogo de SweetAlert, recarga la página
+                    location.reload();
+                });
+
+            } catch (error) {
+                Swal.fire(
+                    {
+                        icon: 'error',
+                        title: 'Ha ocurrido un error',
+                    }
+                )
+            }
         }
     }
 }

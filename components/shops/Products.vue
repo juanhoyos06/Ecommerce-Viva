@@ -38,8 +38,7 @@
                     </v-toolbar>
                     <v-row no-gutters>
                         <v-col cols="6" class="mt-2">
-                            <v-img :src="`${selectedProduct.imagen}`" height="390px" cover
-                                style="border-radius: 20px">
+                            <v-img :src="`${selectedProduct.imagen}`" height="390px" cover style="border-radius: 20px">
                             </v-img>
                         </v-col>
                         <v-col cols="6">
@@ -64,9 +63,7 @@
                                     Cantidad disponible: {{ selectedProduct.cantidad || '00' }}
                                 </v-card-subtitle>
 
-                                <v-card-subtitle>
-                                    Tallas: {{ selectedProduct.tall || 'S M L ' }}
-                                </v-card-subtitle>
+                                
                             </v-row>
 
                             <v-row no-gutters class="justify-center">
@@ -80,7 +77,7 @@
                                     <v-btn prepend-icon="mdi-delete-empty" color="error"
                                         @click="deleteProduct()">Eliminar</v-btn>
                                 </v-col>
-                                <ShopsEditProductDialog />
+                                <ShopsEditProductDialog :selectedProduct="selectedProduct" />
                             </v-row>
                         </v-col>
                     </v-row>
@@ -95,6 +92,12 @@ import config from '../../config/default.json';
 
 
 export default {
+    props: {
+        selectedProduct: {
+            type: Number, // Asegúrate de que el tipo coincida con el tipo de selectedProduct.id_producto
+            required: true
+        }
+    },
     data() {
         return {
             loaded: false,

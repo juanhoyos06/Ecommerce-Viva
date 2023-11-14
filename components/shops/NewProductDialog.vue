@@ -85,7 +85,7 @@ export default {
             marca: '',
             precio: '',
             cantidad: '',
-            ubicacion_bodega: '',
+            ubicacion_bodega: 'Stan 6',
             imagen: null,
 
 
@@ -132,10 +132,13 @@ export default {
                         icon: 'success',
                         title: 'Registro exitoso:'
                     }
-                )
+                ).then(() => {
+                    // Después de cerrar el diálogo de SweetAlert, recarga la página
+                    location.reload();
+                });
 
             } catch (error) {
-                
+
                 Swal.fire(
                     {
                         icon: 'error',

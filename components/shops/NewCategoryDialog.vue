@@ -14,7 +14,7 @@
             </v-toolbar>
 
             <v-card-text>
-                <form action="javascript:void(0)" @submit="saveProducts">
+                <form action="javascript:void(0)" @submit="saveCategory()">
                     <v-row>
                         <v-col cols="6">
 
@@ -47,6 +47,9 @@
 </template>
 <script>
 import axios from "axios";
+import config from '../../config/default.json';
+import Swal from "sweetalert2";
+
 
 export default {
     data() {
@@ -61,8 +64,35 @@ export default {
 
     },
     methods: {
-        async saveProducts() {
-            const result = await axios.post("http://localhost:3001/categories", category.value)
+        getHeaders() {
+            const token = localStorage.getItem('item');
+            return { headers: { 'Authorization': `Bearer ${token}` } }
+
+        },
+        async saveCategory() {
+            try {
+                const url = `${config.api_host}/categories`
+                const headers = this.getHeaders()
+
+                await axios.post(url, this.category, { headers })
+                Swal.fire(
+                    {
+                        icon: 'success',
+                        title: 'Registro exitoso:'
+                    }
+                ).then(() => {
+                    // Después de cerrar el diálogo de SweetAlert, recarga la página
+                    location.reload();
+                });
+
+            } catch (error) {
+                Swal.fire(
+                    {
+                        icon: 'error',
+                        title: 'Ha ocurrido un error',
+                    }
+                )
+            }
         }
     }
 }

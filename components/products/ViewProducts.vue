@@ -61,9 +61,7 @@
                                     Cantidad disponible: {{ selectedProduct.cantidad || '00' }}
                                 </v-card-subtitle>
 
-                                <v-card-subtitle>
-                                    Tallas: {{ selectedProduct.tall || 'S M L ' }}
-                                </v-card-subtitle>
+                                
                             </v-row>
 
                             <v-row no-gutters class="justify-center">
