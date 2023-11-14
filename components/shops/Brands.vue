@@ -36,7 +36,7 @@
                                 <td>{{ brand.count }}</td>
                                 <td>
                                     <v-btn icon="mdi-pencil" variant="text" @click="editTasks(brand)"></v-btn>
-                                    <v-btn icon="mdi-delete-off" variant="text" @click="deleteTasks(brand)">
+                                    <v-btn icon="mdi-delete-off" variant="text" @click="deleteBrand(brand.id_marca)">
                                     </v-btn>
                                 </td>
                             </tr>
@@ -50,6 +50,7 @@
 <script>
 import axios from "axios";
 import config from '../../config/default.json';
+import Swal from "sweetalert2";
 
 
 export default {
@@ -84,6 +85,28 @@ export default {
             const { data } = await axios.get(url, { headers });
             this.brands = data.info;
 
+        },
+        deleteBrand(id){
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Una vez eliminado no podra reversar la operación",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const url = `${config.api_host}/brands/${id}`;
+                    const { data } = await axios.delete(url);
+                    this.loadBrands();
+                    Swal.fire(
+                        'Eliminado!',
+                        'La marca se eliminó correctamente',
+                        'success'
+                    )
+                }
+            })
         }
     }
 }

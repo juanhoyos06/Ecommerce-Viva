@@ -94,11 +94,7 @@ export default {
     created() {
         this.loadCategories();
         this.loadBrands();
-    },
-    computed: {
-        productId() {
-            return this.selectedProduct.id_producto;
-        }
+        console.log('id seleccion'+ this.$props.selectedProduct);
     },
     methods: {
         getHeaders() {
@@ -152,8 +148,8 @@ export default {
             }
         },
         async openEditDialog() {
-            const data = await this.getProductDetails(this.productId);
-            const productDetails = JSON.stringify(data)
+            const data = await this.getProductDetails(this.$props.selectedProduct);
+            console.log('data '+ data);
             console.log('info de data ' + productDetails);
 
 
@@ -172,7 +168,7 @@ export default {
 
         async getProductDetails(productId) {
             console.log('id:' + productId);
-            const url = `${config.api_host}/products/${productId}`;
+            const url = `${config.api_host}/products/info/${productId}`;
             const headers = this.getHeaders();
             const {data}  = await axios.get(url, { headers });
             return data.info;

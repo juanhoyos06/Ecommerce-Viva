@@ -36,7 +36,7 @@
                                 <td>{{ item.count }}</td>
                                 <td>
                                     <v-btn icon="mdi-pencil" variant="text" @click="editTasks(item)"></v-btn>
-                                    <v-btn icon="mdi-delete-off" variant="text" @click="deleteTasks(item)">
+                                    <v-btn icon="mdi-delete-off" variant="text" @click="deleteCategory(item.id_categoria)">
                                     </v-btn>
                                 </td>
                             </tr>
@@ -50,7 +50,7 @@
 <script>
 import axios from "axios";
 import config from '../../config/default.json';
-
+import Swal from "sweetalert2";
 
 export default {
     data() {
@@ -84,6 +84,28 @@ export default {
             const { data } = await axios.get(url, { headers });
             this.categories = data.info;
 
+        },
+        deleteCategory(id){
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Una vez eliminado no podra reversar la operación",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const url = `${config.api_host}/categories/${id}`;
+                    const { data } = await axios.delete(url);
+                    this.loadCategories();
+                    Swal.fire(
+                        'Eliminado!',
+                        'La categoria se eliminó correctamente',
+                        'success'
+                    )
+                }
+            })
         }
     }
 }

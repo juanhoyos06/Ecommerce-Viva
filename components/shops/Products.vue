@@ -33,7 +33,8 @@
             <v-dialog v-model="dialog" max-width="700px" max-height="auto">
                 <v-card style="border-radius: 20px">
                     <v-toolbar color="#FFCC00" :elevation="8">
-                        <v-card-title class="card-title"></v-card-title>
+
+                        <v-card-title class="card-title">{{ selectedProduct.nombre }}</v-card-title>
 
                     </v-toolbar>
                     <v-row no-gutters>
@@ -54,9 +55,7 @@
                             </v-row>
                             <v-row no-gutters class="justify-center">
 
-                                <v-card-title style="font-size: 20px; font-family: Arial black, serif; font-weight: bold">
-                                    {{ selectedProduct.nombre }}
-                                </v-card-title>
+
                             </v-row>
                             <v-row no-gutters class="justify-center">
                                 <v-card-subtitle>
@@ -77,7 +76,7 @@
                                     <v-btn prepend-icon="mdi-delete-empty" color="error"
                                         @click="deleteProduct(selectedProduct.id_producto)">Eliminar</v-btn>
                                 </v-col>
-                                <ShopsEditProductDialog :selectedProduct="selectedProduct" />
+                                <ShopsEditProductDialog :selectedProduct="selectedProduct.id_producto" />
                             </v-row>
                         </v-col>
                     </v-row>
