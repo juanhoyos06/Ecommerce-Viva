@@ -6,12 +6,12 @@
     <v-dialog v-model="dialog" width="60%">
         <v-card>
             <v-toolbar color="#FFCC00" :elevation="8">
-                <v-card-title class="card-title">NUEVO PRODUCTO</v-card-title>
+                <v-card-title class="card-title">EDITAR PRODUCTO</v-card-title>
 
             </v-toolbar>
 
             <v-card-text>
-                <form action="javascript:void(0)" enctype="multipart/form-data" @submit="saveProducts">
+                <form action="javascript:void(0)" enctype="multipart/form-data" @submit="editProducts()">
                     <v-row>
                         <v-col cols="6">
 
@@ -37,8 +37,7 @@
                         <v-col cols="6">
                             <v-text-field label="Ubicacion bodega" v-model="ubicacion_bodega" required variant="underlined"
                                 placeholder="Ingrese el nombre del producto" style="width:100%;" />
-                            <v-file-input label="Imagen" variant="underlined" v-model="imagen" style="width:100%;"
-                                accept=".jpg, .jpeg, .png" />
+                            
 
                         </v-col>
 
@@ -83,9 +82,9 @@ export default {
             marca: '',
             precio: '',
             cantidad: '',
+            estado: '',
             ubicacion_bodega: '',
-            imagen: null,
-
+            
 
 
         };
@@ -95,7 +94,7 @@ export default {
         this.loadCategories();
         this.loadBrands();
     },
-    
+
     methods: {
         getHeaders() {
             const token = localStorage.getItem('item');
@@ -112,21 +111,24 @@ export default {
 
         },
         async editProducts() {
+            
             try {
-                const url = `${config.api_host}/products/${this.product.id}`;
-                const formData = new FormData();
-                formData.append('id_category', this.categoria);
-                formData.append('id_brand', this.marca);
-                formData.append('name', this.nombre);
-                formData.append('price', this.precio);
-                formData.append('id_user', await this.getIdUser());
-                formData.append('cant', this.cantidad);
-                formData.append('address', this.ubicacion_bodega);
-                formData.append('img', this.imagen[0]);
+                this.openEditDialog()
+                const url = `${config.api_host}/products/${this.$props.selectedProduct}`;
+                this.product ={
+                    'id_category': this.categoria,
+                    'id_brand': this.marca,
+                    'name': this.nombre,
+                    'price': this.precio,
+                    'status': this.estado,
+                    'id_user': this.getIdUser(),
+                    'cant': this.cantidad,
+                    'address': this.ubicacion_bodega
+                } 
                 const headers = this.getHeaders()
 
-
-                await axios.put(url, formData, { headers })
+                console.log(this.product);
+                await axios.put(url, this.product, { headers })
                 Swal.fire(
                     {
                         icon: 'success',
@@ -142,7 +144,8 @@ export default {
                 Swal.fire(
                     {
                         icon: 'error',
-                        title: 'Ha ocurrido un error al actualizar el producto.'
+                        title: 'Ha ocurrido un error al actualizar el producto.',
+                        text: error?.message
                     }
                 )
             }
@@ -152,31 +155,15 @@ export default {
             const url = `${config.api_host}/products/info/${productId}`;
             const headers = this.getHeaders();
             const response = await axios.get(url, { headers });
-            console.log(response.data.info[0]);
             const data = response.data.info[0];
-            console.log('nombre: '+ data. precio.slice(1, ));
-    
+
             this.nombre = data.nombre;
             this.categoria = data.categoria;
             this.marca = data.marca;
-            this.precio = data.precio.slice(1,);
+            this.estado = data.estado;
             this.cantidad = data.cantidad;
             this.ubicacion_bodega = data.ubicacion_bodega;
-
-            // this.product = {
-            //     id: this.productId,
-            //     id_category: data.id_categoria,
-            //     id_brand: data.id_marca,
-            //     name: data.nombre,
-            //     price: data.precio,
-            //     cant: data.cantidad,
-            //     address: data.ubicacion_bodega,
-            // };
-
             this.dialog = true;
-        },
-
-        async getProductDetails(productId) {
         },
 
         async loadBrands() {
