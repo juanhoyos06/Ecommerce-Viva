@@ -17,7 +17,7 @@
                 <v-col v-for="product in products" :key="product.id_producto" cols="cols" md="4">
                     <v-item v-slot="{ selectedClass, toggle }">
                         <v-card class="mx-auto pa-6" height="330" width="230" dark @click="openDialog(product)" color="gray"
-                            elevation="18">
+                            elevation="8">
 
                             <v-img :src="`${product.imagen}`" height="210" cover>
                             </v-img>

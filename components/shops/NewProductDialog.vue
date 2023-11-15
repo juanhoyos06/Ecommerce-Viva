@@ -44,9 +44,27 @@
                             <v-file-input label="Imagen" variant="underlined" v-model="imagen" style="width:100%;"
                                 accept=".jpg, .jpeg, .png" />
 
+
+                            <!-- <v-row>
+                                <v-col cols="2">
+                                    <v-row>
+
+                                        <v-switch></v-switch>
+                                        <v-switch></v-switch>
+                                        <v-switch></v-switch>
+                                        <v-switch></v-switch>
+                                    </v-row>
+
+                                </v-col>
+                                <v-col cols="6"> -->
+                                    <!-- <v-text-field label="Talla XS" v-model="t_xs" required
+                                        variant="underlined" placeholder="Ingrese el nombre del producto"
+                                        style="width:100%;" :disabled="true"/> -->
+
+                                <!-- </v-col>
+                            </v-row> -->
+
                         </v-col>
-
-
                     </v-row>
 
                     <v-row justify="end" class="mt-4">

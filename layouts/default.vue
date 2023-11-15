@@ -8,9 +8,24 @@
           <v-spacer></v-spacer>
           <!-- <v-spacer></v-spacer> -->
           <v-btn class="ma-5" text="Compras" />
-          <v-btn icon class="ma-5"><v-icon>mdi-bell</v-icon></v-btn>
-          <v-btn icon class="ma-5"><v-icon>mdi-cart</v-icon></v-btn>
-          <v-btn prepend-icon="mdi-account-circle" stacked class="ma-5" @click="openUserDialog">Cuenta</v-btn> <!-- Corrected click handler -->
+          <v-btn icon class="ma-5">
+            <v-badge dot color="success">
+              <v-icon>
+                mdi-bell
+
+              </v-icon>
+            </v-badge>
+          </v-btn>
+          <v-btn icon class="ma-5">
+            
+            <v-badge color="error" :content="products">
+            <v-icon>
+              mdi-cart
+            </v-icon>
+          </v-badge>
+          </v-btn>
+          <v-btn prepend-icon="mdi-account-circle" stacked class="ma-5" @click="openUserDialog">Cuenta</v-btn>
+          <!-- Corrected click handler -->
 
         </v-app-bar>
       </v-card>
@@ -32,6 +47,8 @@ export default {
         name: "",
         email: "",
       },
+      products: 3,
+
     };
   },
   components: {
@@ -39,10 +56,10 @@ export default {
   },
   methods: {
     openUserDialog() {
-      if(currentUser.user != undefined){
+      if (currentUser.user != undefined) {
         this.$refs.userDialog.$data.dialog = true;
       }
-      else{
+      else {
         this.$router.push("/login");
       }
     },
