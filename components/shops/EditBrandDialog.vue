@@ -1,5 +1,5 @@
 <template>
-    <v-btn icon="mdi-pencil" variant="text" @click="editBrand(brand)"></v-btn>
+    <v-btn icon="mdi-pencil" variant="text" @click="openEditDialog()"></v-btn>
     <v-dialog v-model="dialog" width="60%">
         <v-card>
             <v-toolbar color="#FFCC00" :elevation="8">
@@ -8,7 +8,7 @@
             </v-toolbar>
 
             <v-card-text>
-                <form action="javascript:void(0)" @submit="saveBrand()">
+                <form action="javascript:void(0)" @submit="editBrand()">
                     <v-row>
                         <v-col cols="6">
 
@@ -45,10 +45,9 @@ import config from '../../config/default.json';
 import Swal from "sweetalert2";
 
 export default {
-    props:{
-        selectedBrand:{
-            type: Object, 
-            required: true
+    props: {
+        selectedBrand: {
+            type: Number
         }
     },
     data() {
@@ -69,16 +68,23 @@ export default {
             return { headers: { 'Authorization': `Bearer ${token}` } }
 
         },
-        async saveBrand() {
-            try {
-                const url = `${config.api_host}/brands`
-                const headers = this.getHeaders()
+        async editBrand() {
 
-                await axios.post(url, this.brand, { headers })
+            try {
+                this.openEditDialog()
+                const url = `${config.api_host}/brands/${this.$props.selectedBrand}`;
+                this.brand = {
+                    'name': this.name,
+
+                }
+                const headers = this.getHeaders()
+                console.log(this.brand);
+
+                await axios.put(url, this.brand, { headers })
                 Swal.fire(
                     {
                         icon: 'success',
-                        title: 'Registro exitoso:'
+                        title: 'Marca actualizada correctamente'
                     }
                 ).then(() => {
                     // Después de cerrar el diálogo de SweetAlert, recarga la página
@@ -86,17 +92,27 @@ export default {
                 });
 
             } catch (error) {
+
                 Swal.fire(
                     {
                         icon: 'error',
-                        title: 'Ha ocurrido un error',
+                        title: 'Ha ocurrido un error al actualizar la marca',
+                        text: error?.message
                     }
                 )
             }
         },
-        async editBrand() {
+        async openEditDialog() {
+            const brandId = this.$props.selectedBrand;
+            const url = `${config.api_host}/brands/${brandId}`;
+            const headers = this.getHeaders();
+            const response = await axios.get(url, { headers });
+            const data = response.data.info[0];
+
+            this.name = data.nombre;
             this.dialog = true;
-        }
+
+        },
     }
 }
 

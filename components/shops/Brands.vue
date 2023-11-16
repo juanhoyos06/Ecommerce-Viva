@@ -35,7 +35,7 @@
                                 <td>{{ brand.nombre }}</td>
                                 <td>{{ brand.count }}</td>
                                 <td>
-                                    <ShopsEditBrandDialog :selectedBrand="brand" />
+                                    <ShopsEditBrandDialog :selectedBrand="brand.id_marca" />
                                     <v-btn icon="mdi-delete-off" variant="text" @click="deleteBrand(brand.id_marca)">
                                     </v-btn>
                                 </td>
@@ -56,7 +56,7 @@ import Swal from "sweetalert2";
 export default {
     props:{
         selectedBrand:{
-            type: Object, 
+            type: Number, 
             required: true
         }
     },
