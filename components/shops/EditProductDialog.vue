@@ -127,7 +127,6 @@ export default {
                 } 
                 const headers = this.getHeaders()
 
-                console.log(this.product);
                 await axios.put(url, this.product, { headers })
                 Swal.fire(
                     {

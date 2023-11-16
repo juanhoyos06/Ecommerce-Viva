@@ -71,7 +71,7 @@
                                     <v-btn prepend-icon="mdi-delete-empty" color="error"
                                         @click="deleteDeal(selectedDeal.id_promocion)">Eliminar</v-btn>
                                 </v-col>
-                                <ShopsEditDealDialog />
+                                <ShopsEditDealDialog :selectedDeal="selectedDeal.id_promocion"/>
                             </v-row>
                             <br>
 
@@ -91,6 +91,12 @@ import Swal from "sweetalert2";
 
 
 export default {
+    props: {
+        selectedDeal: {
+            type: Number, 
+            required: true
+        }
+    },
     data() {
         return {
             loaded: false,

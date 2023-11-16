@@ -94,7 +94,7 @@ import Swal from "sweetalert2";
 export default {
     props: {
         selectedProduct: {
-            type: Number, // Asegúrate de que el tipo coincida con el tipo de selectedProduct.id_producto
+            type: Number, 
             required: true
         }
     },
