@@ -35,7 +35,7 @@
                                 <td>{{ item.nombre }}</td>
                                 <td>{{ item.count }}</td>
                                 <td>
-                                    <v-btn icon="mdi-pencil" variant="text" @click="editTasks(item)"></v-btn>
+                                    <ShopsEditCategoryDialog :selectedCategory="item.id_categoria" />
                                     <v-btn icon="mdi-delete-off" variant="text" @click="deleteCategory(item.id_categoria)">
                                     </v-btn>
                                 </td>
