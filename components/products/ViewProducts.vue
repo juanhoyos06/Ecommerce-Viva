@@ -41,7 +41,7 @@
 
                     </v-toolbar>
                     <v-row no-gutters>
-                        <v-col cols="6" class="mt-2">
+                        <v-col cols="6" class="mt-2 mb-2">
                             <v-img :src="`${selectedProduct.imagen}`" height="390px" cover style="border-radius: 20px">
                             </v-img>
                         </v-col>
@@ -58,7 +58,7 @@
                             </v-row>
                             <v-row no-gutters class="justify-center">
 
-                                
+
                             </v-row>
                             <v-row no-gutters class="justify-center">
                                 <v-card-subtitle>
@@ -75,8 +75,18 @@
                                 </v-card-title>
                             </v-row>
                             <v-row no-gutters class="justify-center">
-                                <v-btn style="background-color: #FFCC00;" variant="text" size="small"
-                                    prepend-icon="mdi-cart-minus" @click="">Agregar</v-btn>
+                                <v-form>
+
+                                    <v-btn icon="mdi-minus" variant="text" @click="decrementCant()" />
+                                    {{ cant }}
+                                    <!-- <v-text-field variant="outlined" style="width: 20px;"></v-text-field> -->
+                                    <v-btn icon="mdi-plus" variant="text" @click="incrementCant()" />
+
+
+                                    <v-btn style="background-color: #FFCC00;" variant="text" size="small"
+                                        prepend-icon="mdi-cart-minus"
+                                        @click="agregarProducto(selectedProduct.id_producto)">Agregar</v-btn>
+                                </v-form>
 
 
 
@@ -92,6 +102,7 @@
 <script>
 import axios from "axios";
 import config from '../../config/default.json';
+import Swal from "sweetalert2";
 
 
 export default {
@@ -108,7 +119,9 @@ export default {
             deals: [],
             dialog: false,
             selectedProduct: {},
-            dealsLoaded: false
+            dealsLoaded: false,
+            cant: 0,
+            carrito: {}
 
         };
     },
@@ -140,7 +153,7 @@ export default {
             }, 2000)
         },
         getHeaders() {
-            const token = localStorage.getItem('item');
+            const token = localStorage.getItem('token');
             return { headers: { 'Authorization': `Bearer ${token}` } }
 
         },
@@ -175,14 +188,90 @@ export default {
             const headers = this.getHeaders();
             const { data } = await axios.get(url, { headers });
             this.products = data.info;
-            // this.loadProducts();
+            
         },
         async filterByBrand(id_brand) {
             const url = `${config.api_host}/products/brand/${id_brand}`;
             const headers = this.getHeaders();
             const { data } = await axios.get(url, { headers });
             this.products = data.info;
-            // this.loadProducts();
+            
+        },
+        incrementCant() {
+            if (this.cant < this.selectedProduct.cantidad) {
+                this.cant++
+
+            }
+
+        },
+        decrementCant() {
+            if (this.cant > 0) {
+
+                this.cant--
+            }
+
+        },
+
+        async getIdUser() {
+
+            const token = localStorage.getItem('token');
+            const url = `${config.api_host}/verify`;
+            const user = await axios.post(url, { 'token': token })
+            const id = user?.data?.info?.id_usuario;
+            return id;
+
+        },
+        async agregarProducto(id) {
+            const token = localStorage.getItem('token')
+            if (token) {
+                const url = `${config.api_host}/verify`;
+                axios.post(url, { token }).then(() => {
+                    this.addCarro(id)
+
+                }).catch(() => {
+
+                    useRouter().push('/login')
+                })
+            } else {
+                useRouter().push('/login')
+            }
+
+
+
+        },
+        async addCarro(id) {
+            try {
+                if (this.cant > 0) {
+
+                    const url = `${config.api_host}/users/carrito`;
+                    const formData = new FormData();
+                    formData.append('id_product', id);
+                    formData.append('id_user', await this.getIdUser());
+                    formData.append('cant', this.cant);
+
+                    const headers = this.getHeaders()
+
+
+                    await axios.post(url, formData, { headers })
+                    Swal.fire(
+                        {
+                            icon: 'success',
+                            title: 'Registro exitoso:'
+                        }
+                    ).then(() => {
+                        
+                    });
+
+                }
+
+            } catch (error) {
+                Swal.fire(
+                    {
+                        icon: 'error',
+                        title: 'Ha ocurrido un error.'
+                    }
+                )
+            }
         }
     }
 }

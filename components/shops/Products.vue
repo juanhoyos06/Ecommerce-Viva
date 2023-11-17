@@ -38,7 +38,7 @@
 
                     </v-toolbar>
                     <v-row no-gutters>
-                        <v-col cols="6" class="mt-2">
+                        <v-col cols="6" class="mt-2 mb-2">
                             <v-img :src="`${selectedProduct.imagen}`" height="390px" cover style="border-radius: 20px">
                             </v-img>
                         </v-col>
@@ -121,7 +121,7 @@ export default {
             }, 2000)
         },
         getHeaders() {
-            const token = localStorage.getItem('item');
+            const token = localStorage.getItem('token');
             return { headers: { 'Authorization': `Bearer ${token}` } }
 
         },

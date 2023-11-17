@@ -5,11 +5,11 @@
       <v-card-text>
         <div>
           <strong>Nombre:</strong>
-          {{ currentUser.user ? currentUser.user.nombre : "" }}
+          {{ name }}
         </div>
         <div>
           <strong>Correo:</strong>
-          {{ currentUser.user ? currentUser.user.correo : "" }}
+          {{ email }}
         </div>
       </v-card-text>
       <v-card-actions>
@@ -29,18 +29,30 @@ export default {
   data() {
     return {
       dialog: false,
+      name: '',
+      emai: ''
     };
+  },
+  created(){
+    this.fetchUser();
   },
   methods: {
     async fetchUser() {
-      try {
-        const url = `${config.api_host}/user`
-        const response = await axios.get(url, currentUser.id_usuario);
-        console.log(response.data);
+      
+        const token = localStorage.getItem('token');
         
-      } catch (error) {
-        console.error("Error fetching user data", error);
-      }
+
+        
+        const url = `${config.api_host}/verify`;
+        const user = await axios.post(url, { 'token': token })
+        const _user = user?.data?.info;
+
+        
+
+        this.name = _user.nombre
+        this.email = _user.correo
+
+     
     },
     editar() {
       this.dialog = false;
@@ -48,6 +60,7 @@ export default {
     logOut() {
       // Implement your logout logic here
       currentUser.setUser(null);
+      localStorage.removeItem('token')
       this.$router.push("/login");
     },
   },

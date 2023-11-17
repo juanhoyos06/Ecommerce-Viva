@@ -64,8 +64,8 @@ import config from '../config/default.json';
 
 definePageMeta({layout: "blank",});
 
-const email=  ref('jphoyos0610@gmail.com')
-const password=  ref('user123')
+const email=  ref('')
+const password=  ref('')
 const showPassword=  ref(false)
 const emailRules = ref([
   value => {
@@ -113,45 +113,8 @@ const login = async () => {
       })
   }
 }
-// export default {
-//   data() {
-//     return {
-//       email: "",
-//       password: "",
-//       showPassword: false,
-//       users: [],
-//     };
-//   },
-//   methods: {
-//     async getUsers() {
-//       try {
-//         const response = await axios.get("http://localhost:3001/users");
-//         this.users = response.data;
-//       } catch (error) {
-//         console.error("Error al obtener usuarios:", error);
-//       }
-//     },
-//     async login() {
-//       await this.getUsers();
 
-//       const foundUser = this.users.find(
-//         (user) => user.email === this.email && user.password === this.password
-//       );
 
-//       if (foundUser) {
-//         currentUser.setUser(foundUser);
-
-//         this.$router.push("/");
-//       } else {
-//         Swal.fire({
-//           icon: "error",
-//           title: "Credenciales incorrectas",
-//           text: "Inicio de sesión fallido. Verifica tu correo y contraseña.",
-//         });
-//       }
-//     },
-//   },
-// };
 definePageMeta({
   layout: "ingreso",
 });
